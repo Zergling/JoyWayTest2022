@@ -10,6 +10,7 @@ namespace Game.Scripts.Player
     {
         [SerializeField] private Transform _rootTransform;
         [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private Rigidbody _rigidbody;
 
         private Vector3 _moveInput;
         private Vector2 _lookInput;
@@ -29,6 +30,14 @@ namespace Game.Scripts.Player
 
         private void MoveProcess()
         {
+            if (_moveInput.sqrMagnitude < 0.01f)
+                return;
+
+            var moveSpeed = Time.deltaTime;
+            var moveVectorX = _rootTransform.right * _moveInput.x * moveSpeed;
+            var moveVectorZ = _rootTransform.forward * _moveInput.z * moveSpeed;
+            var moveVector = moveVectorX + moveVectorZ;
+            _rigidbody.position += moveVector;
         }
 
         private void LookProcess()

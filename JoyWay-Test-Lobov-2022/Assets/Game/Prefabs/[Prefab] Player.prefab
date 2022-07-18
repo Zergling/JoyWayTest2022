@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rootTransform: {fileID: 8425464918334050258}
   _cameraTransform: {fileID: 8425464918402632795}
+  _rigidbody: {fileID: 8425464918334050259}
 --- !u!1 &8425464918402632798
 GameObject:
   m_ObjectHideFlags: 0
