@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8425464918334050262}
   m_Layer: 0
   m_Name: '[Prefab] Player'
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,44 +128,32 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 7083beb3-a059-4284-a705-10374793e310
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionId: 821d88c3-3bac-4393-ba24-959b876e4423
+    m_ActionName: Player/Use Item In Right Hand[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8425464918334050262}
+        m_TargetAssemblyTypeName: Game.Scripts.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnJumpInputAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3e446898-c429-46db-a2d5-f0a8c1a86d6c
+    m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: c4ae586b-b079-47ca-b253-571425d3a0e2
-    m_ActionName: UI/Submit[/Keyboard/enter]
+    m_ActionId: 20800947-48ee-4a0f-acaf-b13ebf69cd23
+    m_ActionName: Player/Interact Left[/Keyboard/q]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: ea452e8d-07c4-4e43-a586-a8c0dd158935
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 70c35e81-240e-4234-9a40-6eb4c81a480f
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9d7ea49f-e646-49cc-8969-3287c98fd3a8
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0809ab9f-e328-4ed8-84f5-95e61ac14ad5
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4fe3c6d9-10df-408f-8e97-b9a6cbfc4baf
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bf8605ea-454e-440b-8594-a2f2270bd171
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 95893bc9-0321-452b-8b3c-f47836d165d9
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1ab7672f-123c-49c1-a49a-e86fea207a33
-    m_ActionName: UI/TrackedDeviceOrientation
+    m_ActionId: e6796662-204f-47d6-9e1c-3551f1ba01fa
+    m_ActionName: Player/Interact Right[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

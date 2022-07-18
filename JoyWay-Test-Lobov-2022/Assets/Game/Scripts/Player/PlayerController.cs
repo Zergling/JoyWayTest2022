@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.Configs;
+using Game.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ZerglingPlugins.Tools.Log;
 
 namespace Game.Scripts.Player
 {
@@ -14,11 +17,15 @@ namespace Game.Scripts.Player
 
         private Vector3 _moveInput;
         private Vector2 _lookInput;
-
         private Vector3 _currentRotation;
+        
+        private bool _isJumping;
+
+        private PlayerConfig _playerConfig;
 
         private void Start()
         {
+            _playerConfig = PlayerConfig.Instance;
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _rootTransform.localEulerAngles.y, 0);
         }
 
@@ -33,7 +40,7 @@ namespace Game.Scripts.Player
             if (_moveInput.sqrMagnitude < 0.01f)
                 return;
 
-            var moveSpeed = Time.deltaTime;
+            var moveSpeed = Time.deltaTime * _playerConfig.moveSpeed;
             var moveVectorX = _rootTransform.right * _moveInput.x * moveSpeed;
             var moveVectorZ = _rootTransform.forward * _moveInput.z * moveSpeed;
             var moveVector = moveVectorX + moveVectorZ;
@@ -45,7 +52,7 @@ namespace Game.Scripts.Player
             if (_lookInput.sqrMagnitude < 0.01f)
                 return;
 
-            var rotationSpeed = Time.deltaTime;
+            var rotationSpeed = Time.deltaTime * _playerConfig.mouseSensivity;
             
             var cameraRotationX = _lookInput.y * rotationSpeed;
             var rootRotationY = _lookInput.x * rotationSpeed;
@@ -69,6 +76,26 @@ namespace Game.Scripts.Player
         public void OnLookInputAction(InputAction.CallbackContext context)
         {
             _lookInput = context.ReadValue<Vector2>();
+        }
+
+        public void OnJumpInputAction(InputAction.CallbackContext context)
+        {
+            if (_isJumping)
+                return;
+
+            if (!context.performed)
+                return;
+
+            _isJumping = true;
+            _rigidbody.AddForce(_playerConfig.jumpForce, ForceMode.Impulse);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (!collision.gameObject.tag.Equals(Tags.Ground))
+                return;
+
+            _isJumping = false;
         }
     }
 }
