@@ -8,6 +8,7 @@ namespace Game.Scripts.Creatures.Basic
 {
     public class CreatureController : MonoBehaviour
     {
+        public CreatureType CreatureType => _creatureType;
         public int MaxHP => _config.maxHP;
         public int HP => _hp;
 
