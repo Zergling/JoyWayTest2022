@@ -18,6 +18,11 @@ namespace Game.Scripts.Creatures.Basic
             GenerateStatesDictionary();
         }
 
+        public override void OnStart()
+        {
+            EnterState(CreatureStateType.Idle);
+        }
+
         protected virtual void GenerateStatesDictionary()
         {
             _states = new Dictionary<CreatureStateType, EnemyStateBase>();
@@ -39,6 +44,11 @@ namespace Game.Scripts.Creatures.Basic
             _currentStateType = state;
             _currentStateBase = _states[_currentStateType];
             _currentStateBase.Enter();
+        }
+
+        public void OnAnimationEvent()
+        {
+            _currentStateBase?.OnAnimationEvent();
         }
     }
 }
