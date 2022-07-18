@@ -17,5 +17,6 @@ namespace Game.Scripts.Enums
         Idle,
         Hit,
         Dead,
+        ReturnToPool,
     }
 }

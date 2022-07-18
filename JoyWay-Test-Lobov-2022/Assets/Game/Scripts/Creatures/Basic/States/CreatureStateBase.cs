@@ -21,6 +21,10 @@ namespace Game.Scripts.Creatures.Basic
         public virtual void Exit()
         {
         }
+
+        public virtual void OnAnimationEvent()
+        {
+        }
     }
 }
 
