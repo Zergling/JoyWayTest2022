@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
+using Game.Scripts.Creatures.Basic;
 using Game.Scripts.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using ZerglingPlugins.Tools.Log;
 
-namespace Game.Scripts.Player
+namespace Game.Scripts.Creatures.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : CreatureController
     {
         [SerializeField] private Transform _rootTransform;
         [SerializeField] private Transform _cameraTransform;
@@ -21,16 +23,22 @@ namespace Game.Scripts.Player
         
         private bool _isJumping;
 
-        private PlayerConfig _playerConfig;
+        private GameSettingsConfig _gameSettingsConfig;
 
-        private void Start()
+        public override void OnAwake()
         {
-            _playerConfig = PlayerConfig.Instance;
+            _gameSettingsConfig = GameSettingsConfig.Instance;
+        }
+
+        public override void OnStart()
+        {
+            base.OnStart();
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _rootTransform.localEulerAngles.y, 0);
         }
 
-        public void Update()
+        public override void OnUpdate()
         {
+            base.OnUpdate();
             LookProcess();
             MoveProcess();
         }
@@ -40,7 +48,7 @@ namespace Game.Scripts.Player
             if (_moveInput.sqrMagnitude < 0.01f)
                 return;
 
-            var moveSpeed = Time.deltaTime * _playerConfig.moveSpeed;
+            var moveSpeed = Time.deltaTime * _config.moveSpeed;
             var moveVectorX = _rootTransform.right * _moveInput.x * moveSpeed;
             var moveVectorZ = _rootTransform.forward * _moveInput.z * moveSpeed;
             var moveVector = moveVectorX + moveVectorZ;
@@ -52,7 +60,7 @@ namespace Game.Scripts.Player
             if (_lookInput.sqrMagnitude < 0.01f)
                 return;
 
-            var rotationSpeed = Time.deltaTime * _playerConfig.mouseSensivity;
+            var rotationSpeed = Time.deltaTime * _gameSettingsConfig.mouseSensivity;
             
             var cameraRotationX = _lookInput.y * rotationSpeed;
             var rootRotationY = _lookInput.x * rotationSpeed;
@@ -87,7 +95,7 @@ namespace Game.Scripts.Player
                 return;
 
             _isJumping = true;
-            _rigidbody.AddForce(_playerConfig.jumpForce, ForceMode.Impulse);
+            _rigidbody.AddForce(_config.jumpForce, ForceMode.Impulse);
         }
 
         private void OnCollisionEnter(Collision collision)

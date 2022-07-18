@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Game.Scripts.Configs
 {
-    [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/PlayerConfig")]
-    public class PlayerConfig : CreatureConfig
+    [CreateAssetMenu(fileName = "DummyConfig", menuName = "Configs/DummyConfig")]
+    public class DummyConfig : CreatureConfig
     {
     }
 }
