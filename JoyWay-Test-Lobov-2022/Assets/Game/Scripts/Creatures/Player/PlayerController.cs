@@ -42,6 +42,45 @@ namespace Game.Scripts.Creatures.Player
             LookProcess();
             MoveProcess();
         }
+        
+        public void OnMoveInputAction(InputAction.CallbackContext context)
+        {
+            var input = context.ReadValue<Vector2>();
+            _moveInput = new Vector3(input.x, 0, input.y);
+        }
+
+        public void OnLookInputAction(InputAction.CallbackContext context)
+        {
+            _lookInput = context.ReadValue<Vector2>();
+        }
+
+        public void OnJumpInputAction(InputAction.CallbackContext context)
+        {
+            if (_isJumping)
+                return;
+
+            if (!context.performed)
+                return;
+
+            _isJumping = true;
+            _rigidbody.AddForce(_config.jumpForce, ForceMode.Impulse);
+        }
+
+        public void OnInteractLeftInputAction(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return;
+            
+            Interact(false);
+        }
+
+        public void OnInteractRightInputAction(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return;
+            
+            Interact(true);
+        }
 
         private void MoveProcess()
         {
@@ -75,27 +114,17 @@ namespace Game.Scripts.Creatures.Player
             _cameraTransform.localEulerAngles = cameraRotation;
         }
 
-        public void OnMoveInputAction(InputAction.CallbackContext context)
+        private void Interact(bool rightHand)
         {
-            var input = context.ReadValue<Vector2>();
-            _moveInput = new Vector3(input.x, 0, input.y);
+            var ray = new Ray(_cameraTransform.position, _cameraTransform.forward);
+            if (Physics.Raycast(ray, out var hitInfo, _gameSettingsConfig.interactDistance, LayerMasks.PickupItemLayer))
+            {
+                LogUtils.Info(this, $"{hitInfo.collider.gameObject.name}");
+            }
         }
 
-        public void OnLookInputAction(InputAction.CallbackContext context)
+        private void DropItem(bool rightHand)
         {
-            _lookInput = context.ReadValue<Vector2>();
-        }
-
-        public void OnJumpInputAction(InputAction.CallbackContext context)
-        {
-            if (_isJumping)
-                return;
-
-            if (!context.performed)
-                return;
-
-            _isJumping = true;
-            _rigidbody.AddForce(_config.jumpForce, ForceMode.Impulse);
         }
 
         private void OnCollisionEnter(Collision collision)

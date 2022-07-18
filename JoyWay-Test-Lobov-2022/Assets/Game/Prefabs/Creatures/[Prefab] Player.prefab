@@ -147,11 +147,37 @@ MonoBehaviour:
     m_ActionId: 3e446898-c429-46db-a2d5-f0a8c1a86d6c
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8425464918334050262}
+        m_TargetAssemblyTypeName: Game.Scripts.Creatures.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnInteractLeftInputAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 20800947-48ee-4a0f-acaf-b13ebf69cd23
     m_ActionName: Player/Interact Left[/Keyboard/q]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8425464918334050262}
+        m_TargetAssemblyTypeName: Game.Scripts.Creatures.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnInteractRightInputAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e6796662-204f-47d6-9e1c-3551f1ba01fa
     m_ActionName: Player/Interact Right[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 1

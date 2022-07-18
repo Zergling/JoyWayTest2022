@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 326632301}
   - component: {fileID: 326632300}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: '[Plane] Floor'
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 345783309}
   - component: {fileID: 345783308}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: '[Plane] FakeFloor'
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,6 +9,7 @@ namespace Game.Scripts.Configs
     public class GameSettingsConfig : ConfigBase<GameSettingsConfig>
     {
         public float mouseSensivity;
+        public float interactDistance;
     }
 }
 
