@@ -5,7 +5,7 @@ using UnityEngine;
 using ZerglingPlugins.Tools.Log;
 using ZerglingPlugins.Tools.Singleton;
 
-namespace Game.Scripts.DIContainer
+namespace Game.Scripts.DI
 {
     public class DIContainer : Singleton<DIContainer>
     {
