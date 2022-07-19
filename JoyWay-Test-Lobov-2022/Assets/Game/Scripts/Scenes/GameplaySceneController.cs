@@ -89,7 +89,7 @@ namespace Game.Scripts.Scenes
             {
                 var spawnPoint = _pistolPickupSpawnPoints[i];
                 
-                var pistolPickup = _objectPoolManager.GetPickupObject(ItemType.Pistol);
+                var pistolPickup = _objectPoolManager.GetPickupObject(ItemId.Pistol);
                 pistolPickup.Transform.position = spawnPoint.position;
                 pistolPickup.Transform.eulerAngles = spawnPoint.eulerAngles;
                 pistolPickup.SetActive(true);
@@ -99,7 +99,7 @@ namespace Game.Scripts.Scenes
             {
                 var spawnPoint = _fireStonePickupSpawnPoints[i];
                 
-                var fireStonePickup = _objectPoolManager.GetPickupObject(ItemType.FireStone);
+                var fireStonePickup = _objectPoolManager.GetPickupObject(ItemId.FireStone);
                 fireStonePickup.Transform.position = spawnPoint.position;
                 fireStonePickup.Transform.eulerAngles = spawnPoint.eulerAngles;
                 fireStonePickup.SetActive(true);
@@ -109,7 +109,7 @@ namespace Game.Scripts.Scenes
             {
                 var spawnPoint = _waterStonePickupSpawnPoints[i];
                 
-                var waterStonePickup = _objectPoolManager.GetPickupObject(ItemType.WaterStone);
+                var waterStonePickup = _objectPoolManager.GetPickupObject(ItemId.WaterStone);
                 waterStonePickup.Transform.position = spawnPoint.position;
                 waterStonePickup.Transform.eulerAngles = spawnPoint.eulerAngles;
                 waterStonePickup.SetActive(true);

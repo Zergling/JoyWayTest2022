@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Enums
 {
-    public enum ItemType
+    public enum ItemId
     {
         NONE = 0,
         Pistol = 1,

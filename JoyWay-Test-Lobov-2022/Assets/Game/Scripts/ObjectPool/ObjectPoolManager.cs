@@ -66,21 +66,21 @@ namespace Game.Scripts.ObjectPool
             }
         }
 
-        public PickupItemController GetPickupObject(ItemType itemType)
+        public PickupItemController GetPickupObject(ItemId itemId)
         {
             GameObject obj = null;
 
-            switch (itemType)
+            switch (itemId)
             {
-                case ItemType.Pistol:
+                case ItemId.Pistol:
                     obj = _pistolPickupPool.GetObject();
                     break;
                 
-                case ItemType.FireStone:
+                case ItemId.FireStone:
                     obj = _fireStonePickupPool.GetObject();
                     break;
                 
-                case ItemType.WaterStone:
+                case ItemId.WaterStone:
                     obj = _waterStonePickupPool.GetObject();
                     break;
             }
@@ -91,19 +91,19 @@ namespace Game.Scripts.ObjectPool
 
         public void ReturnPickupObject(PickupItemController pickupItemController)
         {
-            var itemType = pickupItemController.ItemType;
+            var itemType = pickupItemController.ItemId;
 
             switch (itemType)
             {
-                case ItemType.Pistol:
+                case ItemId.Pistol:
                     _pistolPickupPool.ReturnObject(pickupItemController.gameObject);
                     break;
                 
-                case ItemType.FireStone:
+                case ItemId.FireStone:
                     _fireStonePickupPool.ReturnObject(pickupItemController.gameObject);
                     break;
                 
-                case ItemType.WaterStone:
+                case ItemId.WaterStone:
                     _waterStonePickupPool.ReturnObject(pickupItemController.gameObject);
                     break;
             }

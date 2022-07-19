@@ -9,9 +9,9 @@ namespace Game.Scripts.Items
 {
     public class PickupItemController : BasicMonoBehaviour
     {
-        public ItemType ItemType => _itemType;
+        public ItemId ItemId => itemId;
         
-        [SerializeField] private ItemType _itemType;
+        [SerializeField] private ItemId itemId;
     }
 }
 
