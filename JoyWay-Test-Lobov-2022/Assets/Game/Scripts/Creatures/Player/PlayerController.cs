@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
+using Game.Scripts.Enums;
+using Game.Scripts.Items;
 using Game.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -16,6 +18,9 @@ namespace Game.Scripts.Creatures.Player
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private Rigidbody _rigidbody;
 
+        private HandItemController _leftHandItem;
+        private HandItemController _rightHandItem;
+
         private Vector3 _moveInput;
         private Vector2 _lookInput;
         private Vector3 _currentRotation;
@@ -28,6 +33,9 @@ namespace Game.Scripts.Creatures.Player
         {
             _gameSettingsConfig = GameSettingsConfig.Instance;
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _transform.localEulerAngles.y, 0);
+
+            _leftHandItem = null;
+            _rightHandItem = null;
         }
 
         public override void OnUpdate()
@@ -59,7 +67,7 @@ namespace Game.Scripts.Creatures.Player
             _rigidbody.AddForce(_config.jumpForce, ForceMode.Impulse);
         }
 
-        public void OnInteractLeftInputAction(InputAction.CallbackContext context)
+        public void OnInteractLeftHandInputAction(InputAction.CallbackContext context)
         {
             if (!context.performed)
                 return;
@@ -67,7 +75,7 @@ namespace Game.Scripts.Creatures.Player
             Interact(false);
         }
 
-        public void OnInteractRightInputAction(InputAction.CallbackContext context)
+        public void OnInteractRightHandInputAction(InputAction.CallbackContext context)
         {
             if (!context.performed)
                 return;
