@@ -43,6 +43,7 @@ namespace Game.Scripts.ObjectPool
                 result = obj;
             }
 
+            _busyObjectsCount += 1;
             return result;
         }
 
@@ -50,6 +51,7 @@ namespace Game.Scripts.ObjectPool
         {
             obj.SetActive(false);
             obj.transform.SetParent(_container);
+            _busyObjectsCount -= 1;
         }
 
         private void CreateNewObject()
