@@ -14,6 +14,8 @@ namespace Game.Scripts.Items
 {
     public class HandItemController : BasicMonoBehaviour, IObjectPoolItem
     {
+        public ItemId ItemId => _itemId;
+        
         [SerializeField] private ItemId _itemId;
 
         private PlayerController _playerController;

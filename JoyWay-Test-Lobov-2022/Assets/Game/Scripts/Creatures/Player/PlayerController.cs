@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
+using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.Items;
+using Game.Scripts.ObjectPool;
 using Game.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -18,6 +20,9 @@ namespace Game.Scripts.Creatures.Player
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private Rigidbody _rigidbody;
 
+        [SerializeField] private Transform _leftHandContainer;
+        [SerializeField] private Transform _rightHandContainer;
+
         private HandItemController _leftHandItem;
         private HandItemController _rightHandItem;
 
@@ -28,10 +33,14 @@ namespace Game.Scripts.Creatures.Player
         private bool _isJumping;
 
         private GameSettingsConfig _gameSettingsConfig;
+        private ObjectPoolManager _objectPoolManager;
 
         public override void OnSpawnFinish()
         {
-            _gameSettingsConfig = GameSettingsConfig.Instance;
+            var diContainer = DIContainer.Instance;
+            _gameSettingsConfig = diContainer.Resolve<GameSettingsConfig>();
+            _objectPoolManager = diContainer.Resolve<ObjectPoolManager>();
+            
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _transform.localEulerAngles.y, 0);
 
             _leftHandItem = null;
@@ -72,7 +81,7 @@ namespace Game.Scripts.Creatures.Player
             if (!context.performed)
                 return;
             
-            Interact(false);
+            OnInteractProcess(false);
         }
 
         public void OnInteractRightHandInputAction(InputAction.CallbackContext context)
@@ -80,7 +89,7 @@ namespace Game.Scripts.Creatures.Player
             if (!context.performed)
                 return;
             
-            Interact(true);
+            OnInteractProcess(true);
         }
 
         private void MoveProcess()
@@ -115,17 +124,65 @@ namespace Game.Scripts.Creatures.Player
             _cameraTransform.localEulerAngles = cameraRotation;
         }
 
-        private void Interact(bool rightHand)
+        private void OnInteractProcess(bool rightHand)
+        {
+            var handItemController = rightHand ? _rightHandItem : _leftHandItem;
+            
+            if (handItemController == null)
+                TryPickupItem(rightHand);
+            else
+                TryDropItem(rightHand);
+        }
+
+        private void TryPickupItem(bool rightHand)
         {
             var ray = new Ray(_cameraTransform.position, _cameraTransform.forward);
             if (Physics.Raycast(ray, out var hitInfo, _gameSettingsConfig.interactDistance, LayerMasks.PickupItemLayer))
             {
-                LogUtils.Info(this, $"{hitInfo.collider.gameObject.name}");
+                var pickupItemController = hitInfo.collider.gameObject.GetComponent<PickupItemController>();
+                var itemId = pickupItemController.ItemId;
+                _objectPoolManager.ReturnPickupObject(pickupItemController);
+                var handItemController = _objectPoolManager.GetHandItemObject(itemId);
+
+                if (rightHand)
+                {
+                    handItemController.Transform.SetParent(_rightHandContainer);
+                    _rightHandItem = handItemController;
+                }
+                else
+                {
+                    handItemController.Transform.SetParent(_leftHandContainer);
+                    _leftHandItem = handItemController;
+                }
+                
+                handItemController.Transform.localPosition = Vector3.zero;
+                handItemController.Transform.localRotation = Quaternion.identity;
+                handItemController.SetActive(true);
             }
         }
 
-        private void DropItem(bool rightHand)
+        private void TryDropItem(bool rightHand)
         {
+            ItemId itemId = ItemId.NONE;
+            
+            if (rightHand)
+            {
+                itemId = _rightHandItem.ItemId;
+                _objectPoolManager.ReturnHandItemObject(_rightHandItem);
+                _rightHandItem = null;
+            }
+            else
+            {
+                itemId = _leftHandItem.ItemId;
+                _objectPoolManager.ReturnHandItemObject(_leftHandItem);
+                _leftHandItem = null;
+            }
+
+            var pickupItem = _objectPoolManager.GetPickupObject(itemId);
+            var position = _transform.position + (_transform.forward * _gameSettingsConfig.dropDistance);
+            pickupItem.Transform.position = position;
+            pickupItem.Transform.LookAt(_transform);
+            pickupItem.SetActive(true);
         }
 
         private void OnCollisionEnter(Collision collision)
