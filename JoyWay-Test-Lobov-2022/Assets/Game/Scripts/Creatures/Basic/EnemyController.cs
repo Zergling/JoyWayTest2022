@@ -12,14 +12,9 @@ namespace Game.Scripts.Creatures.Basic
         protected CreatureStateType _currentStateType;
         protected EnemyStateBase _currentStateBase;
 
-        public override void OnAwake()
+        public override void OnSpawnFinish()
         {
-            base.OnAwake();
             GenerateStatesDictionary();
-        }
-
-        public override void OnStart()
-        {
             EnterState(CreatureStateType.Idle);
         }
 

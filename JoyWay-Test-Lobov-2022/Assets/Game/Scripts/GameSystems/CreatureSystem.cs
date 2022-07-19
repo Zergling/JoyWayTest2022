@@ -13,7 +13,7 @@ namespace Game.Scripts.GameSystems
         private List<CreatureController> _creaturesList;
         private Dictionary<CreatureType, List<CreatureController>> _creaturesDict;
 
-        public CreatureSystem() : base()
+        public CreatureSystem()
         {
             _creaturesList = new List<CreatureController>();
             _creaturesDict = new Dictionary<CreatureType, List<CreatureController>>();
@@ -53,7 +53,7 @@ namespace Game.Scripts.GameSystems
             list.RemoveAt(index);
         }
 
-        public CreatureController GetFirstOf(CreatureType creatureType)
+        public CreatureController GetFirst(CreatureType creatureType)
         {
             if (!_creaturesDict.ContainsKey(creatureType))
             {

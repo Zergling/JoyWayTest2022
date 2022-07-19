@@ -17,7 +17,7 @@ namespace Game.Scripts.ObjectPool
         [SerializeField] private ObjectPoolController _fireStonePickupPool;
         [SerializeField] private ObjectPoolController _waterStonePickupPool;
 
-        public void OnStart()
+        public void OnAwake()
         {
             _playerObjectPool.OnStart();
             _dummyObjectPool.OnStart();
@@ -43,11 +43,14 @@ namespace Game.Scripts.ObjectPool
             }
 
             var controller = obj.GetComponent<CreatureController>();
+            controller.OnSpawn();
             return controller;
         }
 
         public void ReturnCreatureObject(CreatureController creatureController)
         {
+            creatureController.OnDespawn();
+            
             var creatureType = creatureController.CreatureType;
 
             switch (creatureType)

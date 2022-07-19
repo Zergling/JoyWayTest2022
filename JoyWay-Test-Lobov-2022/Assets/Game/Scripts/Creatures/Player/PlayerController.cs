@@ -25,20 +25,14 @@ namespace Game.Scripts.Creatures.Player
 
         private GameSettingsConfig _gameSettingsConfig;
 
-        public override void OnAwake()
+        public override void OnSpawnFinish()
         {
             _gameSettingsConfig = GameSettingsConfig.Instance;
-        }
-
-        public override void OnStart()
-        {
-            base.OnStart();
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _rootTransform.localEulerAngles.y, 0);
         }
 
         public override void OnUpdate()
         {
-            base.OnUpdate();
             LookProcess();
             MoveProcess();
         }
