@@ -25,11 +25,11 @@ namespace Game.Scripts.Creatures.Dummy
         protected override void GenerateStatesDictionary()
         {
             base.GenerateStatesDictionary();
-            _states[CreatureStateType.Idle] = new DummyStateIdle(this);
-            _states[CreatureStateType.Hit] = new DummyStateHit(this);
-            _states[CreatureStateType.Dead] = new DummyStateDead(this);
-            _states[CreatureStateType.Dead] = new DummyStateDead(this);
-            _states[CreatureStateType.ReturnToPool] = new DummyStateReturnToPool(this);
+            _states[CreatureState.Idle] = new DummyStateIdle(this);
+            _states[CreatureState.Hit] = new DummyStateHit(this);
+            _states[CreatureState.Dead] = new DummyStateDead(this);
+            _states[CreatureState.Dead] = new DummyStateDead(this);
+            _states[CreatureState.ReturnToPool] = new DummyStateReturnToPool(this);
         }
 
         public override void OnFixedUpdate()

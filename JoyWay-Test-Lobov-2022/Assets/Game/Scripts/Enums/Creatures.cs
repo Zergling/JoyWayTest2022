@@ -11,7 +11,7 @@ namespace Game.Scripts.Enums
         Dummy = 2,
     }
     
-    public enum CreatureStateType
+    public enum CreatureState
     {
         NONE,
         Idle,
