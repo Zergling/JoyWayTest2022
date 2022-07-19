@@ -19,6 +19,7 @@ namespace Game.Scripts.ObjectPool
 
         public void OnAwake()
         {
+            Init();
             _playerObjectPool.OnStart();
             _dummyObjectPool.OnStart();
             
