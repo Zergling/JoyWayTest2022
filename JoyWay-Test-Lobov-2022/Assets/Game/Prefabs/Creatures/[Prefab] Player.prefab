@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creatureType: 1
-  _rootTransform: {fileID: 8425464918334050258}
+  _transform: {fileID: 8425464918334050258}
   _cameraTransform: {fileID: 8425464918402632795}
   _rigidbody: {fileID: 8425464918334050259}
 --- !u!1 &8425464918402632798

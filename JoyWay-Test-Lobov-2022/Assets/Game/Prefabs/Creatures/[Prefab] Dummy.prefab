@@ -208,4 +208,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creatureType: 2
+  _transform: {fileID: 1874241708718498991}
   _animatorController: {fileID: 8829169028459131217}
