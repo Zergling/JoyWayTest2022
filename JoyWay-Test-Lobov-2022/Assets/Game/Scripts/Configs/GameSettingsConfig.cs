@@ -10,6 +10,7 @@ namespace Game.Scripts.Configs
     {
         public float mouseSensivity;
         public float interactDistance;
+        public float dropDistance;
     }
 }
 

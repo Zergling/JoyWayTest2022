@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GameSettingsConfig
   m_EditorClassIdentifier: 
   mouseSensivity: 3
-  interactDistance: 4
+  interactDistance: 5
+  dropDistance: 2
