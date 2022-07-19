@@ -129,6 +129,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3379281017820280328, guid: 334143d0577f7944f8853a7bbd1fd058, type: 3}
+      propertyPath: _itemId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3379281017820280328, guid: 334143d0577f7944f8853a7bbd1fd058, type: 3}
       propertyPath: _itemType
       value: 1
       objectReference: {fileID: 0}

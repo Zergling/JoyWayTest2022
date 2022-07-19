@@ -24,6 +24,8 @@ namespace Game.Scripts.Items
 
         public void OnSpawn()
         {
+            var diContainer = DIContainer.Instance;
+            _objectPoolManager = diContainer.Resolve<ObjectPoolManager>();
         }
 
         public void OnDespawn()
@@ -42,9 +44,13 @@ namespace Game.Scripts.Items
         {
         }
 
-        public void Drop()
+        public void Drop(Vector3 toPosition)
         {
-            
+            var pickupItemController = _objectPoolManager.GetPickupObject(_itemId);
+            pickupItemController.Transform.position = toPosition;
+            pickupItemController.Transform.LookAt(_playerController.Transform);
+            pickupItemController.SetActive(true);
+            _objectPoolManager.ReturnHandItemObject(this);
         }
     }
 }

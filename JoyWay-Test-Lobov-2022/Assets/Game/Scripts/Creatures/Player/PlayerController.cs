@@ -33,14 +33,12 @@ namespace Game.Scripts.Creatures.Player
         private bool _isJumping;
 
         private GameSettingsConfig _gameSettingsConfig;
-        private ObjectPoolManager _objectPoolManager;
 
         public override void OnSpawnFinish()
         {
             var diContainer = DIContainer.Instance;
             _gameSettingsConfig = diContainer.Resolve<GameSettingsConfig>();
-            _objectPoolManager = diContainer.Resolve<ObjectPoolManager>();
-            
+
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _transform.localEulerAngles.y, 0);
 
             _leftHandItem = null;
@@ -140,9 +138,8 @@ namespace Game.Scripts.Creatures.Player
             if (Physics.Raycast(ray, out var hitInfo, _gameSettingsConfig.interactDistance, LayerMasks.PickupItemLayer))
             {
                 var pickupItemController = hitInfo.collider.gameObject.GetComponent<PickupItemController>();
-                var itemId = pickupItemController.ItemId;
-                _objectPoolManager.ReturnPickupObject(pickupItemController);
-                var handItemController = _objectPoolManager.GetHandItemObject(itemId);
+                var handItemController = pickupItemController.OnPickup();
+                handItemController.Setup(this);
 
                 if (rightHand)
                 {
@@ -163,26 +160,18 @@ namespace Game.Scripts.Creatures.Player
 
         private void TryDropItem(bool rightHand)
         {
-            ItemId itemId = ItemId.NONE;
+            var dropPosition = _transform.position + (_transform.forward * _gameSettingsConfig.dropDistance);
             
             if (rightHand)
             {
-                itemId = _rightHandItem.ItemId;
-                _objectPoolManager.ReturnHandItemObject(_rightHandItem);
+                _rightHandItem.Drop(dropPosition);
                 _rightHandItem = null;
             }
             else
             {
-                itemId = _leftHandItem.ItemId;
-                _objectPoolManager.ReturnHandItemObject(_leftHandItem);
+                _leftHandItem.Drop(dropPosition);
                 _leftHandItem = null;
             }
-
-            var pickupItem = _objectPoolManager.GetPickupObject(itemId);
-            var position = _transform.position + (_transform.forward * _gameSettingsConfig.dropDistance);
-            pickupItem.Transform.position = position;
-            pickupItem.Transform.LookAt(_transform);
-            pickupItem.SetActive(true);
         }
 
         private void OnCollisionEnter(Collision collision)

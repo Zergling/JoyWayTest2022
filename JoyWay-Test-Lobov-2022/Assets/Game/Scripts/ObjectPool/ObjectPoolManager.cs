@@ -98,11 +98,13 @@ namespace Game.Scripts.ObjectPool
             }
 
             var controller = obj.GetComponent<PickupItemController>();
+            controller.OnSpawn();
             return controller;
         }
 
         public void ReturnPickupObject(PickupItemController pickupItemController)
         {
+            pickupItemController.OnDespawn();
             var itemType = pickupItemController.ItemId;
 
             switch (itemType)
