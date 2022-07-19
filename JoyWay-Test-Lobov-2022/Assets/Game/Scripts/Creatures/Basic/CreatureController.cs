@@ -4,21 +4,20 @@ using Game.Scripts.Configs;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.GameSystems;
+using Game.Scripts.MonoBehaviours;
 using Game.Scripts.ObjectPool;
 using UnityEngine;
 
 namespace Game.Scripts.Creatures.Basic
 {
-    public class CreatureController : MonoBehaviour, IObjectPoolItem
+    public class CreatureController : BasicMonoBehaviour, IObjectPoolItem
     {
-        public Transform Transform => _transform;
         public CreatureType CreatureType => _creatureType;
         public int MaxHP => _config.maxHP;
         public int HP => _hp;
 
         [SerializeField] protected CreatureType _creatureType;
-        [SerializeField] protected Transform _transform;
-        
+
         protected int _hp;
 
         protected DIContainer _diContainer;
@@ -48,14 +47,6 @@ namespace Game.Scripts.Creatures.Basic
         }
 
         public virtual void OnDespawnFinish()
-        {
-        }
-
-        public virtual void OnFixedUpdate()
-        {
-        }
-
-        public virtual void OnUpdate()
         {
         }
     }

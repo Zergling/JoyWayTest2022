@@ -6,6 +6,7 @@ using Game.Scripts.Creatures.Basic;
 using UnityEngine;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
+using Game.Scripts.Events;
 using Game.Scripts.GameSystems;
 using Game.Scripts.ObjectPool;
 
@@ -69,6 +70,7 @@ namespace Game.Scripts.Scenes
             
             // game systems
             _diContainer.BindInstance(CreatureSystem.Instance);
+            _diContainer.BindInstance(EventBus.Instance);
         }
 
         private void SpawnGameObjects()
@@ -76,21 +78,21 @@ namespace Game.Scripts.Scenes
             var player = _objectPoolManager.GetCreatureObject(CreatureType.Player);
             player.Transform.position = _playerSpawnPoint.position;
             player.Transform.eulerAngles = _playerSpawnPoint.eulerAngles;
-            player.gameObject.SetActive(true);
+            player.SetActive(true);
 
             var dummy = _objectPoolManager.GetCreatureObject(CreatureType.Dummy);
             dummy.Transform.position = _dummySpawnPoint.position;
             dummy.Transform.eulerAngles = _dummySpawnPoint.eulerAngles;
-            dummy.gameObject.SetActive(true);
+            dummy.SetActive(true);
 
             for (int i = 0; i < _pistolPickupSpawnPoints.Length; i++)
             {
                 var spawnPoint = _pistolPickupSpawnPoints[i];
                 
                 var pistolPickup = _objectPoolManager.GetPickupObject(ItemType.Pistol);
-                pistolPickup.gameObject.SetActive(true);
-                pistolPickup.transform.position = spawnPoint.position;
-                pistolPickup.transform.eulerAngles = spawnPoint.eulerAngles;
+                pistolPickup.Transform.position = spawnPoint.position;
+                pistolPickup.Transform.eulerAngles = spawnPoint.eulerAngles;
+                pistolPickup.SetActive(true);
             }
             
             for (int i = 0; i < _fireStonePickupSpawnPoints.Length; i++)
@@ -98,9 +100,9 @@ namespace Game.Scripts.Scenes
                 var spawnPoint = _fireStonePickupSpawnPoints[i];
                 
                 var fireStonePickup = _objectPoolManager.GetPickupObject(ItemType.FireStone);
-                fireStonePickup.gameObject.SetActive(true);
-                fireStonePickup.transform.position = spawnPoint.position;
-                fireStonePickup.transform.eulerAngles = spawnPoint.eulerAngles;
+                fireStonePickup.Transform.position = spawnPoint.position;
+                fireStonePickup.Transform.eulerAngles = spawnPoint.eulerAngles;
+                fireStonePickup.SetActive(true);
             }
             
             for (int i = 0; i < _waterStonePickupSpawnPoints.Length; i++)
@@ -108,9 +110,9 @@ namespace Game.Scripts.Scenes
                 var spawnPoint = _waterStonePickupSpawnPoints[i];
                 
                 var waterStonePickup = _objectPoolManager.GetPickupObject(ItemType.WaterStone);
-                waterStonePickup.gameObject.SetActive(true);
-                waterStonePickup.transform.position = spawnPoint.position;
-                waterStonePickup.transform.eulerAngles = spawnPoint.eulerAngles;
+                waterStonePickup.Transform.position = spawnPoint.position;
+                waterStonePickup.Transform.eulerAngles = spawnPoint.eulerAngles;
+                waterStonePickup.SetActive(true);
             }
         }
     }
