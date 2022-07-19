@@ -13,7 +13,6 @@ namespace Game.Scripts.Creatures.Player
 {
     public class PlayerController : CreatureController
     {
-        [SerializeField] private Transform _rootTransform;
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private Rigidbody _rigidbody;
 
@@ -28,7 +27,7 @@ namespace Game.Scripts.Creatures.Player
         public override void OnSpawnFinish()
         {
             _gameSettingsConfig = GameSettingsConfig.Instance;
-            _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _rootTransform.localEulerAngles.y, 0);
+            _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _transform.localEulerAngles.y, 0);
         }
 
         public override void OnUpdate()
@@ -82,8 +81,8 @@ namespace Game.Scripts.Creatures.Player
                 return;
 
             var moveSpeed = Time.deltaTime * _config.moveSpeed;
-            var moveVectorX = _rootTransform.right * _moveInput.x * moveSpeed;
-            var moveVectorZ = _rootTransform.forward * _moveInput.z * moveSpeed;
+            var moveVectorX = _transform.right * _moveInput.x * moveSpeed;
+            var moveVectorZ = _transform.forward * _moveInput.z * moveSpeed;
             var moveVector = moveVectorX + moveVectorZ;
             _rigidbody.position += moveVector;
         }
@@ -104,7 +103,7 @@ namespace Game.Scripts.Creatures.Player
             var rootRotation = new Vector3(0, _currentRotation.y, 0);
             var cameraRotation = new Vector3(_currentRotation.x, 0, 0);
 
-            _rootTransform.localEulerAngles = rootRotation;
+            _transform.localEulerAngles = rootRotation;
             _cameraTransform.localEulerAngles = cameraRotation;
         }
 

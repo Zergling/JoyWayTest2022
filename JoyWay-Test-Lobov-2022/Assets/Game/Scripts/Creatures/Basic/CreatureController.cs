@@ -11,11 +11,13 @@ namespace Game.Scripts.Creatures.Basic
 {
     public class CreatureController : MonoBehaviour, IObjectPoolItem
     {
+        public Transform Transform => _transform;
         public CreatureType CreatureType => _creatureType;
         public int MaxHP => _config.maxHP;
         public int HP => _hp;
 
         [SerializeField] protected CreatureType _creatureType;
+        [SerializeField] protected Transform _transform;
         
         protected int _hp;
 
