@@ -30,6 +30,8 @@ namespace Game.Scripts.Scenes
         
         private void Awake()
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            
             InstallBindings();
             
             _creatureSystem = _diContainer.Resolve<CreatureSystem>();
@@ -78,11 +80,13 @@ namespace Game.Scripts.Scenes
             var player = _objectPoolManager.GetCreatureObject(CreatureType.Player);
             player.Transform.position = _playerSpawnPoint.position;
             player.Transform.eulerAngles = _playerSpawnPoint.eulerAngles;
+            player.Transform.SetParent(null);
             player.SetActive(true);
 
             var dummy = _objectPoolManager.GetCreatureObject(CreatureType.Dummy);
             dummy.Transform.position = _dummySpawnPoint.position;
             dummy.Transform.eulerAngles = _dummySpawnPoint.eulerAngles;
+            dummy.Transform.SetParent(null);
             dummy.SetActive(true);
 
             for (int i = 0; i < _pistolPickupSpawnPoints.Length; i++)
