@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
+using Game.Scripts.Creatures.Player;
 using UnityEngine;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
@@ -10,6 +11,7 @@ using Game.Scripts.Events;
 using Game.Scripts.GameSystems;
 using Game.Scripts.ObjectPool;
 using Game.Scripts.UI.Windows.EnemyInfo;
+using Game.Scripts.UI.Windows.HUD;
 using ZerglingPlugins.Windows;
 
 namespace Game.Scripts.Scenes
@@ -48,6 +50,10 @@ namespace Game.Scripts.Scenes
             var enemyInfoWindowSetup = new EnemyInfoWindowSetup();
             enemyInfoWindowSetup.CreatureController = _creatureSystem.GetFirst(CreatureType.Dummy);
             _windowsManager.Open<EnemyInfoWindow, EnemyInfoWindowSetup>(enemyInfoWindowSetup);
+
+            var hudWindowSetup = new HUDWindowSetup();
+            hudWindowSetup.PlayerController = (PlayerController)_creatureSystem.GetFirst(CreatureType.Player);
+            _windowsManager.Open<HUDWindow, HUDWindowSetup>(hudWindowSetup);
         }
 
         private void FixedUpdate()
