@@ -8,7 +8,8 @@ namespace Game.Scripts.Damage
     public struct DamageStruct
     {
         public DamageType DamageType;
-        public int Value;
+        public int DamageValue;
+        public int WetValue;
     }
 }
 

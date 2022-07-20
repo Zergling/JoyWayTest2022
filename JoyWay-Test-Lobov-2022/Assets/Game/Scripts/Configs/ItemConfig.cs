@@ -11,6 +11,8 @@ namespace Game.Scripts.Configs
         public ItemId itemId;
         public DamageType damageType;
         public int damageValue;
+        public int wetValue;
+        public ProjectileType projetileType;
     }
 }
 

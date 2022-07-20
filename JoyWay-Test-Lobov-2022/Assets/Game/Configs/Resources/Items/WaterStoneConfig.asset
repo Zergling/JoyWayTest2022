@@ -15,3 +15,5 @@ MonoBehaviour:
   itemId: 3
   damageType: 3
   damageValue: 0
+  wetValue: 10
+  projetileType: 1
