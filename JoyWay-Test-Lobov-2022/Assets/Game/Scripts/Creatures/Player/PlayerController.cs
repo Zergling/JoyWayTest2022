@@ -17,6 +17,8 @@ namespace Game.Scripts.Creatures.Player
 {
     public class PlayerController : CreatureController
     {
+        public Transform CameraTransform => _cameraTransform;
+        
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private Rigidbody _rigidbody;
 
@@ -105,7 +107,7 @@ namespace Game.Scripts.Creatures.Player
                 return;
 
             var phase = context.phase;
-            _leftHandItem.Use(phase);
+            _rightHandItem.Use(phase);
         }
 
         private void MoveProcess()
