@@ -23,11 +23,6 @@ namespace Game.Scripts.Items
             var emission = _particleSystem.emission;
             emission.enabled = false;
         }
-
-        private void OnParticleCollision(GameObject other)
-        {
-            LogUtils.Info(this, "OnParticleCollision");
-        }
     }
 }
 
