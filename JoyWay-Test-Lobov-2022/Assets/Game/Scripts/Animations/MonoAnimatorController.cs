@@ -14,7 +14,7 @@ namespace Game.Scripts.Animations
         {
             _currentStateHash = stateHash;
             _animator.enabled = true;
-            _animator.Play(_currentStateHash);
+            _animator.Play(_currentStateHash, 0, 0);
         }
 
         public void StopAnimation()
