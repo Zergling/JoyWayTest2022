@@ -15,10 +15,12 @@ namespace Game.Scripts.Creatures.Basic
         public CreatureType CreatureType => _creatureType;
         public int MaxHP => _config.maxHP;
         public int HP => _hp;
+        public int WetValue => _wetValue;
 
         [SerializeField] protected CreatureType _creatureType;
 
         protected int _hp;
+        protected int _wetValue;
 
         protected DIContainer _diContainer;
         protected CreatureConfig _config;
@@ -31,6 +33,9 @@ namespace Game.Scripts.Creatures.Basic
             
             var creatureConfigList = _diContainer.Resolve<CreatureConfigList>();
             _config = creatureConfigList.GetConfig(_creatureType);
+
+            _hp = _config.maxHP;
+            _wetValue = 0;
             
             _creatureSystem.SubscribeCreature(this);
             OnSpawnFinish();
