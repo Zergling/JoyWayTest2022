@@ -9,6 +9,7 @@ using Game.Scripts.Enums;
 using Game.Scripts.Events;
 using Game.Scripts.GameSystems;
 using Game.Scripts.ObjectPool;
+using ZerglingPlugins.Windows;
 
 namespace Game.Scripts.Scenes
 {
@@ -16,6 +17,7 @@ namespace Game.Scripts.Scenes
     {
         [Header("BINDINGS")]
         [SerializeField] private ObjectPoolManager _objectPoolManager;
+        [SerializeField] private WindowsManager _windowsManager;
 
         [Header("SPAWN POINTS")] 
         [SerializeField] private Transform _playerSpawnPoint;
@@ -34,14 +36,13 @@ namespace Game.Scripts.Scenes
 
             var diContainer = DIContainer.Instance;
             _creatureSystem = diContainer.Resolve<CreatureSystem>();
-            
-            _objectPoolManager.OnAwake();
-
-            SpawnGameObjects();
         }
 
         private void Start()
         {
+            _objectPoolManager.OnAwake();
+
+            SpawnGameObjects();
         }
 
         private void FixedUpdate()
@@ -62,16 +63,20 @@ namespace Game.Scripts.Scenes
         {
             var diContainer = DIContainer.Instance;
             
+            diContainer.BindInstance(EventBus.Instance);
+            
             // configs
             diContainer.BindInstance(CreatureConfigList.Instance);
             diContainer.BindInstance(GameSettingsConfig.Instance);
             
             // object pools
+            _objectPoolManager = Instantiate(_objectPoolManager);
             diContainer.BindInstance(_objectPoolManager);
             
             // game systems
+            _windowsManager = Instantiate(_windowsManager);
+            diContainer.BindInstance(_windowsManager);
             diContainer.BindInstance(CreatureSystem.Instance);
-            diContainer.BindInstance(EventBus.Instance);
         }
 
         private void SpawnGameObjects()
