@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Player;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
@@ -20,14 +21,17 @@ namespace Game.Scripts.Items
         
         [SerializeField] private ItemId _itemId;
 
-        private PlayerController _playerController;
+        protected ItemConfig _config;
+        protected PlayerController _playerController;
 
-        private ObjectPoolManager _objectPoolManager;
+        protected ObjectPoolManager _objectPoolManager;
 
         public void OnSpawn()
         {
             var diContainer = DIContainer.Instance;
+            var itemConfigList = diContainer.Resolve<ItemConfigList>();
             _objectPoolManager = diContainer.Resolve<ObjectPoolManager>();
+            _config = itemConfigList.GetConfig(_itemId);
         }
 
         public void OnDespawn()

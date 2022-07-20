@@ -73,6 +73,7 @@ namespace Game.Scripts.Scenes
             // configs
             diContainer.BindInstance(CreatureConfigList.Instance);
             diContainer.BindInstance(GameSettingsConfig.Instance);
+            diContainer.BindInstance(ItemConfigList.Instance);
             
             // object pools
             _objectPoolManager = Instantiate(_objectPoolManager);
