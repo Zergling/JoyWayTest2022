@@ -24,7 +24,7 @@ namespace Game.Scripts.ObjectPool
         [SerializeField] private ObjectPoolController _fireStoneHandItemPool;
         [SerializeField] private ObjectPoolController _waterStoneHandItemPool;
 
-        public void OnAwake()
+        public void OnStart()
         {
             Init();
             

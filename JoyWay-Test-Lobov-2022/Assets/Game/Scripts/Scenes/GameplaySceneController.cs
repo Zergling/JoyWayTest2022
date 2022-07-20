@@ -40,7 +40,7 @@ namespace Game.Scripts.Scenes
 
         private void Start()
         {
-            _objectPoolManager.OnAwake();
+            _objectPoolManager.OnStart();
 
             SpawnGameObjects();
         }
