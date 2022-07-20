@@ -24,23 +24,26 @@ namespace Game.Scripts.ObjectPool
 
         public GameObject GetObject()
         {
+            GameObject result = null;
+            
             if (_busyObjectsCount == _objects.Count)
             {
                 CreateNewObject();
                 var last = _objects.Count - 1;
-                return _objects[last];
+                result = _objects[last];
             }
 
-            GameObject result = null;
-
-            for (int i = 0; i < _objects.Count; i++)
+            if (result == null)
             {
-                var obj = _objects[i];
+                for (int i = 0; i < _objects.Count; i++)
+                {
+                    var obj = _objects[i];
                 
-                if (obj.activeInHierarchy)
-                    continue;
+                    if (obj.activeInHierarchy)
+                        continue;
 
-                result = obj;
+                    result = obj;
+                }
             }
 
             _busyObjectsCount += 1;
