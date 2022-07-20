@@ -9,7 +9,7 @@ namespace Game.Scripts.Configs
     [CreateAssetMenu(fileName = "ItemConfigList", menuName = "Configs/ItemConfigList")]
     public class ItemConfigList : ConfigBase<ItemConfigList>
     {
-        private ItemConfig[] _configs;
+        [SerializeField] private ItemConfig[] _configs;
 
         public ItemConfig GetConfig(ItemId itemId)
         {
