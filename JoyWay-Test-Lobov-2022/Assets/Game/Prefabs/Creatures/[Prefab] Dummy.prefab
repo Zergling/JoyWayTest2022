@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7801767345156923531}
   - component: {fileID: 3943415066535903743}
   - component: {fileID: 8829169028459131217}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: '[Container] Content'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1178781139450667262}
   - component: {fileID: 5044635097383214744}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 1874241708718498991}
   - component: {fileID: 5796957382024366261}
   - component: {fileID: 6779725104669829221}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: '[Prefab] Dummy'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,6 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6810c4226b122ae479acaa7edda085c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _creatureType: 2
   _transform: {fileID: 1874241708718498991}
+  _creatureType: 2
   _animatorController: {fileID: 8829169028459131217}
