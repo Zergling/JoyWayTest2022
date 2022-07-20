@@ -28,7 +28,6 @@ namespace Game.Scripts.Creatures.Dummy
             _states[CreatureState.Idle] = new DummyStateIdle(this);
             _states[CreatureState.Hit] = new DummyStateHit(this);
             _states[CreatureState.Dead] = new DummyStateDead(this);
-            _states[CreatureState.Dead] = new DummyStateDead(this);
             _states[CreatureState.ReturnToPool] = new DummyStateReturnToPool(this);
         }
 

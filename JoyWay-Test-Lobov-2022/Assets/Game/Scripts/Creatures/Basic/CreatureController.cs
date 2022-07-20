@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
+using Game.Scripts.Damage;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.GameSystems;
@@ -53,6 +54,11 @@ namespace Game.Scripts.Creatures.Basic
 
         public virtual void OnDespawnFinish()
         {
+        }
+
+        public virtual void ApplyDamage(DamageStruct damageStruct)
+        {
+            _hp -= damageStruct.Value;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Creatures.Basic;
+using Game.Scripts.Damage;
 using Game.Scripts.Enums;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace Game.Scripts.Creatures.Basic
 {
     public class EnemyController : CreatureController
     {
-        protected Dictionary<CreatureState, EnemyStateBase> _states;
+        protected Dictionary<CreatureState, CreatureStateBase> _states;
         protected CreatureState _currentState;
-        protected EnemyStateBase _currentStateBase;
+        protected CreatureStateBase _currentStateBase;
 
         public override void OnSpawnFinish()
         {
@@ -20,7 +21,7 @@ namespace Game.Scripts.Creatures.Basic
 
         protected virtual void GenerateStatesDictionary()
         {
-            _states = new Dictionary<CreatureState, EnemyStateBase>();
+            _states = new Dictionary<CreatureState, CreatureStateBase>();
         }
 
         public override void OnFixedUpdate()
@@ -39,6 +40,12 @@ namespace Game.Scripts.Creatures.Basic
             _currentState = state;
             _currentStateBase = _states[_currentState];
             _currentStateBase.Enter();
+        }
+
+        public override void ApplyDamage(DamageStruct damageStruct)
+        {
+            base.ApplyDamage(damageStruct);
+            EnterState(CreatureState.Hit);
         }
 
         public void OnAnimationEvent()

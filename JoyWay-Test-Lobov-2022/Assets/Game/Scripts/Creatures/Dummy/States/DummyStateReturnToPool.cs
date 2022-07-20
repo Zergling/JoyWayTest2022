@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Game.Scripts.Creatures.Dummy
 {
-    public class DummyStateReturnToPool : EnemyStateBase
+    public class DummyStateReturnToPool : DummyStateBase
     {
-        public DummyStateReturnToPool(EnemyController controller) : base(controller)
+        public DummyStateReturnToPool(DummyController controller) : base(controller)
         {
         }
     }
