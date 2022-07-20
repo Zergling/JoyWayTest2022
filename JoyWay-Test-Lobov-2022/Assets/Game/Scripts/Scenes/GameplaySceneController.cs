@@ -24,8 +24,6 @@ namespace Game.Scripts.Scenes
         [SerializeField] private Transform[] _fireStonePickupSpawnPoints;
         [SerializeField] private Transform[] _waterStonePickupSpawnPoints;
 
-        private DIContainer _diContainer;
-        
         private CreatureSystem _creatureSystem;
         
         private void Awake()
@@ -33,8 +31,9 @@ namespace Game.Scripts.Scenes
             Cursor.lockState = CursorLockMode.Locked;
             
             InstallBindings();
-            
-            _creatureSystem = _diContainer.Resolve<CreatureSystem>();
+
+            var diContainer = DIContainer.Instance;
+            _creatureSystem = diContainer.Resolve<CreatureSystem>();
             
             _objectPoolManager.OnAwake();
 
@@ -61,18 +60,18 @@ namespace Game.Scripts.Scenes
 
         private void InstallBindings()
         {
-            _diContainer = DIContainer.Instance;
+            var diContainer = DIContainer.Instance;
             
             // configs
-            _diContainer.BindInstance(CreatureConfigList.Instance);
-            _diContainer.BindInstance(GameSettingsConfig.Instance);
+            diContainer.BindInstance(CreatureConfigList.Instance);
+            diContainer.BindInstance(GameSettingsConfig.Instance);
             
             // object pools
-            _diContainer.BindInstance(_objectPoolManager);
+            diContainer.BindInstance(_objectPoolManager);
             
             // game systems
-            _diContainer.BindInstance(CreatureSystem.Instance);
-            _diContainer.BindInstance(EventBus.Instance);
+            diContainer.BindInstance(CreatureSystem.Instance);
+            diContainer.BindInstance(EventBus.Instance);
         }
 
         private void SpawnGameObjects()
