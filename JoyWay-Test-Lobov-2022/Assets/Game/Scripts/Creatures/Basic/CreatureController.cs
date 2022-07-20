@@ -22,17 +22,16 @@ namespace Game.Scripts.Creatures.Basic
 
         protected int _hp;
         protected int _wetValue;
-
-        protected DIContainer _diContainer;
+        
         protected CreatureConfig _config;
         protected CreatureSystem _creatureSystem;
         
         public void OnSpawn()
         {
-            _diContainer = DIContainer.Instance;
-            _creatureSystem = _diContainer.Resolve<CreatureSystem>();
+            var diContainer = DIContainer.Instance;
+            _creatureSystem = diContainer.Resolve<CreatureSystem>();
             
-            var creatureConfigList = _diContainer.Resolve<CreatureConfigList>();
+            var creatureConfigList = diContainer.Resolve<CreatureConfigList>();
             _config = creatureConfigList.GetConfig(_creatureType);
 
             _hp = _config.maxHP;
