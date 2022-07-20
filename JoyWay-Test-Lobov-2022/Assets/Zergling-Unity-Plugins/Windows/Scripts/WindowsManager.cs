@@ -53,10 +53,16 @@ namespace ZerglingPlugins.Windows
             AddWindowPrefabs(windowPrefabs);
         }
 
-        private void LateUpdate()
+        private void Update()
         {
             for (int i = 0; i < _updatableWindows.Count; i++)
                 _updatableWindows[i].OnUpdate();
+        }
+
+        private void LateUpdate()
+        {
+            for (int i = 0; i < _updatableWindows.Count; i++)
+                _updatableWindows[i].OnLateUpdate();
         }
 
         public void AddWindowPrefabs(List<BaseWindow> prefabs)
