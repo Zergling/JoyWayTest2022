@@ -58,7 +58,8 @@ namespace Game.Scripts.Creatures.Basic
 
         public virtual void ApplyDamage(DamageStruct damageStruct)
         {
-            _hp -= damageStruct.Value;
+            _hp -= damageStruct.DamageValue;
+            _wetValue += damageStruct.WetValue;
         }
     }
 }
