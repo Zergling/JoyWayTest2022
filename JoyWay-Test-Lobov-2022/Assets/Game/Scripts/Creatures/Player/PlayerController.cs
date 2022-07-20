@@ -90,6 +90,24 @@ namespace Game.Scripts.Creatures.Player
             OnInteractProcess(true);
         }
 
+        public void OnUseItemLeftHandInputAction(InputAction.CallbackContext context)
+        {
+            if (_leftHandItem == null)
+                return;
+            
+            var phase = context.phase;
+            _leftHandItem.Use(phase);
+        }
+
+        public void OnUseItemRightHandInputAction(InputAction.CallbackContext context)
+        {
+            if (_rightHandItem == null)
+                return;
+
+            var phase = context.phase;
+            _leftHandItem.Use(phase);
+        }
+
         private void MoveProcess()
         {
             if (_moveInput.sqrMagnitude < 0.01f)

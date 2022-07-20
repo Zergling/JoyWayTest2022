@@ -216,11 +216,37 @@ MonoBehaviour:
     m_ActionId: c6aaa0d7-404f-418d-acab-f3d329e5fcbd
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8425464918334050262}
+        m_TargetAssemblyTypeName: Game.Scripts.Creatures.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnUseItemLeftHandInputAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4e107a62-baf9-47b3-8092-2dc2eef76db0
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8425464918334050262}
+        m_TargetAssemblyTypeName: Game.Scripts.Creatures.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnUseItemRightHandInputAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 821d88c3-3bac-4393-ba24-959b876e4423
     m_ActionName: Player/Use Item In Right Hand[/Mouse/rightButton]
   - m_PersistentCalls:
