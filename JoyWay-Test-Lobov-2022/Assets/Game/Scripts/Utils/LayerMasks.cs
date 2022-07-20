@@ -7,6 +7,7 @@ namespace Game.Scripts.Utils
     public class LayerMasks
     {
         public static int PickupItemLayer = 1 << LayerMask.NameToLayer("PickupItem");
+        public static int CreaturesLayer = 1 << LayerMask.NameToLayer("Creatures");
     }
 }
 
