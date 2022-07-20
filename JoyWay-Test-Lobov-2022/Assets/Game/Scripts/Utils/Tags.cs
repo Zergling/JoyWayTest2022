@@ -7,6 +7,7 @@ namespace Game.Scripts.Utils
     public class Tags
     {
         public static string Ground = "Ground";
+        public static string Creature = "Creature";
     }
 }
 

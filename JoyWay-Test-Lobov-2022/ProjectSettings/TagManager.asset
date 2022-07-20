@@ -5,16 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Creature
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - PickupItem
-  - Creatures
-  - 
+  - Creature
+  - Projectile
   - 
   - 
   - 
