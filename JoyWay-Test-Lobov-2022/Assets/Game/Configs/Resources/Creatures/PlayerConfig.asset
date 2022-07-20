@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fda938a9a354d4a46bcf3fb6a2a415d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 498c52c109c4a2a42a7a646b993b3c18, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   creatureType: 1
-  moveSpeed: 4
+  moveSpeed: 5
   jumpForce: {x: 0, y: 7, z: 0}
   maxHP: 1

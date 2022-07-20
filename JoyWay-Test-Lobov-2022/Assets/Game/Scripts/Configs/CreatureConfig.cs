@@ -6,7 +6,8 @@ using ZerglingPlugins.Tools.Configs;
 
 namespace Game.Scripts.Configs
 {
-    public class CreatureConfig : ConfigBase<CreatureConfig>
+    [CreateAssetMenu(fileName = "CreatureConfig", menuName = "Configs/CreatureConfig")]
+    public class CreatureConfig : ScriptableObject
     {
         public CreatureType creatureType;
         public float moveSpeed;
