@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Animations;
 using Game.Scripts.Creatures.Basic;
 using Game.Scripts.Creatures.Player;
+using Game.Scripts.DI;
 using Game.Scripts.Enums;
+using Game.Scripts.Events;
 using UnityEngine;
+using ZerglingPlugins.Tools.Log;
 
 namespace Game.Scripts.Creatures.Dummy
 {
@@ -16,9 +20,15 @@ namespace Game.Scripts.Creatures.Dummy
 
         private CreatureController _playerController;
 
+        private EventBus _eventBus;
+
         public override void OnSpawnFinish()
         {
             base.OnSpawnFinish();
+
+            var diContainer = DIContainer.Instance;
+            _eventBus = diContainer.Resolve<EventBus>();
+            
             _playerController = _creatureSystem.GetFirst(CreatureType.Player);
         }
 
@@ -37,6 +47,10 @@ namespace Game.Scripts.Creatures.Dummy
             var playerPosition = _playerController.Transform.position;
             var lookAtPoisition = new Vector3(playerPosition.x, 0, playerPosition.z);
             _transform.LookAt(lookAtPoisition);
+        }
+
+        private void OnParticleCollision(GameObject other)
+        {
         }
     }
 }
