@@ -75,17 +75,14 @@ namespace Game.Scripts.Items
         
         protected virtual void UseStarted()
         {
-            LogUtils.Info(this, $"Use started");
         }
 
         protected virtual void UsePerformed()
         {
-            LogUtils.Info(this, $"Use preformed");
         }
 
         protected virtual void UseCanceled()
         {
-            LogUtils.Info(this, $"Use canceled");
         }
 
         

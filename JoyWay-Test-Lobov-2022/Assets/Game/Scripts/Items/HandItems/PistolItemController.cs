@@ -4,6 +4,7 @@ using Game.Scripts.Creatures.Basic;
 using Game.Scripts.Damage;
 using Game.Scripts.Utils;
 using UnityEngine;
+using ZerglingPlugins.Tools.Log;
 
 namespace Game.Scripts.Items
 {
@@ -15,12 +16,19 @@ namespace Game.Scripts.Items
             var cameraForward = _playerController.CameraTransform.forward;
             var ray = new Ray(cameraPosition, cameraForward);
 
-            if (Physics.Raycast(ray, out var hitInfo, float.MaxValue, LayerMasks.CreaturesLayer))
+            if (Physics.Raycast(ray, out var hitInfo, float.MaxValue))
             {
+                var colliderTag = hitInfo.collider.gameObject.tag;
+                if (!colliderTag.Equals(Tags.Creature))
+                    return;
+                
                 var creatureController = hitInfo.collider.gameObject.GetComponent<CreatureController>();
+                
                 var damage = new DamageStruct();
-                damage.Value = _config.damageValue;
+                damage.DamageValue = _config.damageValue;
                 damage.DamageType = _config.damageType;
+                damage.WetValue = _config.wetValue;
+                
                 creatureController.ApplyDamage(damage);
             }
         }
