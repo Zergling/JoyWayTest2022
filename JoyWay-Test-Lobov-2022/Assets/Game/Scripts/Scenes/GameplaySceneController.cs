@@ -9,6 +9,7 @@ using Game.Scripts.Enums;
 using Game.Scripts.Events;
 using Game.Scripts.GameSystems;
 using Game.Scripts.ObjectPool;
+using Game.Scripts.UI.Windows.EnemyInfo;
 using ZerglingPlugins.Windows;
 
 namespace Game.Scripts.Scenes
@@ -27,7 +28,7 @@ namespace Game.Scripts.Scenes
         [SerializeField] private Transform[] _waterStonePickupSpawnPoints;
 
         private CreatureSystem _creatureSystem;
-        
+
         private void Awake()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -43,6 +44,10 @@ namespace Game.Scripts.Scenes
             _objectPoolManager.OnStart();
 
             SpawnGameObjects();
+            
+            var enemyInfoWindowSetup = new EnemyInfoWindowSetup();
+            enemyInfoWindowSetup.CreatureController = _creatureSystem.GetFirst(CreatureType.Dummy);
+            _windowsManager.Open<EnemyInfoWindow, EnemyInfoWindowSetup>(enemyInfoWindowSetup);
         }
 
         private void FixedUpdate()
