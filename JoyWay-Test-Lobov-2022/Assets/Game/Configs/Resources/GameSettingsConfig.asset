@@ -15,3 +15,4 @@ MonoBehaviour:
   mouseSensivity: 3
   interactDistance: 2
   dropDistance: 2
+  wetMaxValue: 100
