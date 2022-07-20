@@ -10,7 +10,7 @@ namespace Game.Scripts.Animations
 
         protected int _currentStateHash;
 
-        public void PlayAmination(int stateHash)
+        public void PlayAnimation(int stateHash)
         {
             _currentStateHash = stateHash;
             _animator.enabled = true;
