@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 8829689806111969375}
   - component: {fileID: 8829689806111969372}
   m_Layer: 0
-  m_Name: '[Manager] ObjectPool'
+  m_Name: '[System] ObjectPool'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
