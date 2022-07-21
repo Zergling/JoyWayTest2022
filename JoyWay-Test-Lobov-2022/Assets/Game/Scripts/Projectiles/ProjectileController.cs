@@ -8,9 +8,7 @@ using Game.Scripts.Enums;
 using Game.Scripts.MonoBehaviours;
 using Game.Scripts.ObjectPool;
 using Game.Scripts.Utils;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using ZerglingPlugins.Tools.Log;
 
 namespace Game.Scripts.Projectiles
 {

@@ -9,11 +9,8 @@ using Game.Scripts.Events;
 using Game.Scripts.InflictEffects;
 using Game.Scripts.MonoBehaviours;
 using Game.Scripts.ObjectPool;
-using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using ZerglingPlugins.Tools.Log;
 
 namespace Game.Scripts.Items
 {
