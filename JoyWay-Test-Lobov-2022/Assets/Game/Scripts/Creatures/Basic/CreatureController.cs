@@ -69,22 +69,20 @@ namespace Game.Scripts.Creatures.Basic
         public virtual void ApplyDamage(DamageStruct damageStruct)
         {
             _values[CreatureValueType.HP] -= damageStruct.DamageValue;
-            var hp = _values[CreatureValueType.HP];
-            if (hp > _config.maxHP)
-                hp = _config.maxHP;
+            if (_values[CreatureValueType.HP] > _config.maxHP)
+                _values[CreatureValueType.HP] = _config.maxHP;
             
-            if (hp < 0)
-                hp = 0;
+            if (_values[CreatureValueType.HP] < 0)
+                _values[CreatureValueType.HP] = 0;
             
             _values[CreatureValueType.Wet] += damageStruct.WetValue;
-            var wet = _values[CreatureValueType.Wet];
-            if (wet > _gameSettingsConfig.wetMaxValue)
-                wet = _gameSettingsConfig.wetMaxValue;
+            if (_values[CreatureValueType.Wet] > _gameSettingsConfig.wetMaxValue)
+                _values[CreatureValueType.Wet] = _gameSettingsConfig.wetMaxValue;
 
-            if (wet < 0)
-                wet = 0;
+            if (_values[CreatureValueType.Wet] < 0)
+                _values[CreatureValueType.Wet] = 0;
 
-            var evnt = new CreatureValuesChangedEvent(this, hp, wet);
+            var evnt = new CreatureValuesChangedEvent(this, _values[CreatureValueType.HP], _values[CreatureValueType.Wet]);
             _eventBus.Fire(evnt);
         }
     }
