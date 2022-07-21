@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f4b7cfe54b7514ebe2d539f68e8969, type: 3}
+  m_Name: EmptyInflictEffectConfig
+  m_EditorClassIdentifier: 
+  effectType: 0
+  creatureSpriteColor: {r: 1, g: 1, b: 1, a: 0}
+  timerItem:
+    withTimer: 0
+    duration: 0
+  checkApplyItems:
+  - checkValueType: 1
+    checkBelow: 1
+    belowValue: 0
+    checkEquals: 0
+    equalsValue: 0
+    checkAbove: 0
+    aboveValue: 0
+  damageItems: []
+  resistItems: []
+  removeEffects: 

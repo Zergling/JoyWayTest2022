@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f4b7cfe54b7514ebe2d539f68e8969, type: 3}
+  m_Name: FireStoneBurnInflictEffectConfig
+  m_EditorClassIdentifier: 
+  effectType: 1
+  creatureSpriteColor: {r: 1, g: 0.49019608, b: 0.49019608, a: 1}
+  timerItem:
+    withTimer: 1
+    duration: 10
+  checkApplyItems:
+  - checkValueType: 2
+    checkBelow: 0
+    belowValue: 0
+    checkEquals: 1
+    equalsValue: 0
+    checkAbove: 0
+    aboveValue: 0
+  damageItems:
+  - DamageType: 2
+    DamageValue: 5
+    WetValue: 0
+  resistItems:
+  - damageType: 1
+    resistValue: -10
+  removeEffects: 02000000
