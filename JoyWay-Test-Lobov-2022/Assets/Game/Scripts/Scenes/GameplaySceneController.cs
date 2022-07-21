@@ -100,6 +100,8 @@ namespace Game.Scripts.Scenes
             diContainer.BindInstance(CreatureConfigList.Instance);
             diContainer.BindInstance(GameSettingsConfig.Instance);
             diContainer.BindInstance(ItemConfigList.Instance);
+            SpriteConfig.Instance.Init();
+            diContainer.BindInstance(SpriteConfig.Instance);
             
             // object pools
             _objectPoolManager = Instantiate(_objectPoolManager);
