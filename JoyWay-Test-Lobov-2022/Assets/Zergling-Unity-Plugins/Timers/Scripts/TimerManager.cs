@@ -81,7 +81,15 @@ namespace ZerglingPlugins.Timers
             if (!_timersDict.ContainsKey(id))
                 return;
 
+            var timer = _timersDict[id];
+            var index = _timersList.IndexOf(timer);
+            _timersList.RemoveAt(index);
             _timersDict.Remove(id);
+        }
+        
+        public bool HasTimer(int id)
+        {
+            return _timersDict.ContainsKey(id);
         }
 
         public void AddTimerDuration(int id, float time)
