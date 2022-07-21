@@ -17,12 +17,6 @@ namespace Game.Scripts.Events
 
     public struct CreatureInflictEffectsChangedEvent : IEvent
     {
-        public CreatureController CreatureController { get; private set; }
-
-        public CreatureInflictEffectsChangedEvent(CreatureController creatureController)
-        {
-            CreatureController = creatureController;
-        }
     }
 
     public struct CreatureDiedEvent : IEvent
