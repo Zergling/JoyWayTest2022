@@ -23,11 +23,8 @@ namespace Game.Scripts.Items
                     return;
                 
                 var creatureController = hitInfo.collider.gameObject.GetComponent<CreatureController>();
-                
-                var damage = new DamageStruct();
-                damage.DamageValue = _config.damageValue;
-                damage.DamageType = _config.damageType;
-                damage.WetValue = _config.wetValue;
+
+                var damage = GetDamageStruct();
                 
                 creatureController.ApplyDamage(ref damage);
             }

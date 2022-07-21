@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Player;
+using Game.Scripts.Damage;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.Events;
+using Game.Scripts.InflictEffects;
 using Game.Scripts.MonoBehaviours;
 using Game.Scripts.ObjectPool;
 using UnityEditor.Profiling.Memory.Experimental;
@@ -80,7 +82,17 @@ namespace Game.Scripts.Items
             pickupItemController.SetActive(true);
             _objectPoolManager.ReturnHandItemObject(this);
         }
-        
+
+        public DamageStruct GetDamageStruct()
+        {
+            var result = new DamageStruct();
+            result.DamageType = _config.damageType;
+            result.DamageValue = _config.damageValue;
+            result.WetValue = _config.wetValue;
+            result.InflictEffect = new InflictEffectController(_config.inflictEffectConfig);
+            return result;
+        }
+
         protected virtual void UseStarted()
         {
         }

@@ -50,10 +50,7 @@ namespace Game.Scripts.Items
             if (_instanceId != instanceId)
                 return;
 
-            var damage = new DamageStruct();
-            damage.DamageType = _config.damageType;
-            damage.DamageValue = _config.damageValue;
-            damage.WetValue = _config.wetValue;
+            var damage = GetDamageStruct();
 
             var creatureController = evnt.ThisCreatureController;
             creatureController.ApplyDamage(ref damage);

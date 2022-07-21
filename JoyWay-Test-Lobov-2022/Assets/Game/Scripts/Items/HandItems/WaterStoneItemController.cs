@@ -18,10 +18,7 @@ namespace Game.Scripts.Items
             var hitPosition = cameraPosition + cameraForward * _cameraForwardFactor;
             var forceVector = hitPosition - _projectileSpawnPoint.position;
 
-            var damage = new DamageStruct();
-            damage.DamageType = _config.damageType;
-            damage.DamageValue = _config.damageValue;
-            damage.WetValue = _config.wetValue;
+            var damage = GetDamageStruct();
 
             var projectile = _objectPoolManager.GetProjectileObject(_config.projetileType);
             projectile.Setup(damage);
