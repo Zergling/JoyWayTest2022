@@ -16,6 +16,12 @@ namespace ZerglingPlugins.Windows
             gameObject.SetActive(active);
         }
 
+        public void OnAwake(TWindow window)
+        {
+            _window = window;
+            _controller = window.Controller;
+        }
+
         public virtual void SubscribeToEvents()
         {
         }
@@ -24,10 +30,8 @@ namespace ZerglingPlugins.Windows
         {
         }
 
-        public virtual void Setup(TWindow window, TWindowSetup setup)
+        public virtual void Setup(TWindowSetup setup)
         {
-            _window = window;
-            _controller = window.Controller;
         }
 
         public void CloseParentWindow()
