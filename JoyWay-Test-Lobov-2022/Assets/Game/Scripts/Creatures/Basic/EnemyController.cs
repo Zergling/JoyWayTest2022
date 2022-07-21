@@ -45,8 +45,9 @@ namespace Game.Scripts.Creatures.Basic
         public override void ApplyDamage(DamageStruct damageStruct)
         {
             base.ApplyDamage(damageStruct);
-            
-            if (_hp > 0)
+
+            var hp = _values[CreatureValueType.HP];
+            if (hp > 0)
                 EnterState(CreatureState.Hit);
             else
                 EnterState(CreatureState.Dead);
