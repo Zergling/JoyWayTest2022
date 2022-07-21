@@ -76,6 +76,14 @@ namespace ZerglingPlugins.Timers
             _timersList.Add(timer);
         }
 
+        public void DeleteTimer(int id)
+        {
+            if (!_timersDict.ContainsKey(id))
+                return;
+
+            _timersDict.Remove(id);
+        }
+
         public void AddTimerDuration(int id, float time)
         {
             if (!_timersDict.ContainsKey(id))
