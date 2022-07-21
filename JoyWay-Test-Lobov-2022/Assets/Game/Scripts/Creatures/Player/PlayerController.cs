@@ -43,12 +43,12 @@ namespace Game.Scripts.Creatures.Player
             _rightHandItem = null;
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
             LookProcess();
             MoveProcess();
         }
-        
+
         public void OnMoveInputAction(InputAction.CallbackContext context)
         {
             var input = context.ReadValue<Vector2>();
@@ -120,7 +120,7 @@ namespace Game.Scripts.Creatures.Player
             if (_moveInput.sqrMagnitude < 0.01f)
                 return;
 
-            var moveSpeed = Time.deltaTime * _config.moveSpeed;
+            var moveSpeed = Time.fixedDeltaTime * _config.moveSpeed;
             var moveVectorX = _transform.right * _moveInput.x * moveSpeed;
             var moveVectorZ = _transform.forward * _moveInput.z * moveSpeed;
             var moveVector = moveVectorX + moveVectorZ;
@@ -132,7 +132,7 @@ namespace Game.Scripts.Creatures.Player
             if (_lookInput.sqrMagnitude < 0.01f)
                 return;
 
-            var rotationSpeed = Time.deltaTime * _gameSettingsConfig.mouseSensivity;
+            var rotationSpeed = Time.fixedDeltaTime * _gameSettingsConfig.mouseSensivity;
             
             var cameraRotationX = _lookInput.y * rotationSpeed;
             var rootRotationY = _lookInput.x * rotationSpeed;
