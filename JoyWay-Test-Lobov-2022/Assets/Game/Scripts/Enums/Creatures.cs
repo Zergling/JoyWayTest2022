@@ -10,7 +10,14 @@ namespace Game.Scripts.Enums
         Player = 1,
         Dummy = 2,
     }
-    
+
+    public enum CreatureValueType
+    {
+        NONE = 0,
+        HP = 1,
+        Wet = 2,
+    }
+
     public enum CreatureState
     {
         NONE,

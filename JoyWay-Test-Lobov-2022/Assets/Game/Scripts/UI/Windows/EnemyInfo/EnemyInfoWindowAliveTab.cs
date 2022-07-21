@@ -50,7 +50,7 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
         
         private void UpdateHPBar()
         {
-            var hp = _creatureController.HP;
+            var hp = _creatureController.HPValue;
             var maxHP = _creatureController.MaxHP;
             
             _hpText.text = $"{hp}/{maxHP}";

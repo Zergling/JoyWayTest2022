@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
@@ -17,20 +18,19 @@ namespace Game.Scripts.Creatures.Basic
     {
         public CreatureType CreatureType => _creatureType;
         public int MaxHP => _config.maxHP;
-        public int HP => _hp;
-        public int WetValue => _wetValue;
+        public int HPValue=> _values[CreatureValueType.HP];
+        public int WetValue => _values[CreatureValueType.Wet];
 
         [SerializeField] protected CreatureType _creatureType;
 
-        protected int _hp;
-        protected int _wetValue;
+        protected Dictionary<CreatureValueType, int> _values;
 
         protected GameSettingsConfig _gameSettingsConfig;
         protected CreatureConfig _config;
         protected CreatureSystem _creatureSystem;
         protected EventBus _eventBus;
-        
-        public void OnSpawn()
+
+        private void Awake()
         {
             var diContainer = DIContainer.Instance;
             _creatureSystem = diContainer.Resolve<CreatureSystem>();
@@ -40,10 +40,14 @@ namespace Game.Scripts.Creatures.Basic
             _config = creatureConfigList.GetConfig(_creatureType);
 
             _gameSettingsConfig = diContainer.Resolve<GameSettingsConfig>();
-
-            _hp = _config.maxHP;
-            _wetValue = 0;
             
+            _values = new Dictionary<CreatureValueType, int>();
+            _values[CreatureValueType.HP] = _config.maxHP;
+            _values[CreatureValueType.Wet] = 0;
+        }
+
+        public void OnSpawn()
+        {
             _creatureSystem.SubscribeCreature(this);
             OnSpawnFinish();
         }
@@ -64,21 +68,23 @@ namespace Game.Scripts.Creatures.Basic
 
         public virtual void ApplyDamage(DamageStruct damageStruct)
         {
-            _hp -= damageStruct.DamageValue;
-            if (_hp > _config.maxHP)
-                _hp = _config.maxHP;
+            _values[CreatureValueType.HP] -= damageStruct.DamageValue;
+            var hp = _values[CreatureValueType.HP];
+            if (hp > _config.maxHP)
+                hp = _config.maxHP;
             
-            if (_hp < 0)
-                _hp = 0;
+            if (hp < 0)
+                hp = 0;
             
-            _wetValue += damageStruct.WetValue;
-            if (_wetValue > _gameSettingsConfig.wetMaxValue)
-                _wetValue = _gameSettingsConfig.wetMaxValue;
+            _values[CreatureValueType.Wet] += damageStruct.WetValue;
+            var wet = _values[CreatureValueType.Wet];
+            if (wet > _gameSettingsConfig.wetMaxValue)
+                wet = _gameSettingsConfig.wetMaxValue;
 
-            if (_wetValue < 0)
-                _wetValue = 0;
+            if (wet < 0)
+                wet = 0;
 
-            var evnt = new CreatureValuesChangedEvent(this, _hp, _wetValue);
+            var evnt = new CreatureValuesChangedEvent(this, hp, wet);
             _eventBus.Fire(evnt);
         }
     }

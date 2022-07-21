@@ -42,7 +42,7 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
         {
             _creatureController = setup.CreatureController;
             
-            var alive = _creatureController.HP > 0;
+            var alive = _creatureController.HPValue > 0;
             _aliveTab.SetActive(alive);
             _deadTab.SetActive(!alive);
             
