@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f4b7cfe54b7514ebe2d539f68e8969, type: 3}
   m_Name: WaterStoneWetnessInflictEffectConfig
   m_EditorClassIdentifier: 
-  effectType: 0
+  effectType: 2
   creatureSpriteColor: {r: 0.49019608, g: 0.49019608, b: 1, a: 1}
   timerItem:
     withTimer: 0

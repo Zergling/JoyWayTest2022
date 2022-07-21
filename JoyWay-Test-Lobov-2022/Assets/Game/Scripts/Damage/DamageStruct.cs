@@ -14,7 +14,7 @@ namespace Game.Scripts.Damage
         public DamageType DamageType;
         public int DamageValue;
         public int WetValue;
-        public InflictEffectController InflictEffect;
+        public InflictEffectController? InflictEffect;
     }
 }
 
