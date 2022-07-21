@@ -1,58 +1,50 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using ZerglingPlugins.Tools.Singleton;
 
 namespace Game.Scripts.Events
 {
     public class EventBus : Singleton<EventBus>
     {
-        private Dictionary<Type, List<Action<IEvent>>> _handlers;
+        private Dictionary<Type, EventHandlerBase> _handlers;
 
         public EventBus()
         {
-            _handlers = new Dictionary<Type, List<Action<IEvent>>>();
+            _handlers = new Dictionary<Type, EventHandlerBase>();
         }
 
-        public void Subscribe<T>(Action<IEvent> callback) where T : IEvent
+        public void Subscribe<T>(Action<T> callback) where T : struct, IEvent
         {
             var eventType = typeof(T);
 
             if (!_handlers.ContainsKey(eventType))
-                _handlers[eventType] = new List<Action<IEvent>>();
-
-            var list = _handlers[eventType];
-            list.Add(callback);
+            {
+                var handler = new EventHandler<T>();
+                _handlers[eventType] = handler;
+            }
+            
+            (_handlers[eventType] as EventHandler<T>).Subscribe(callback);
         }
 
-        public void UnSubscribe<T>(Action<IEvent> callback) where T : IEvent
+        public void UnSubscribe<T>(Action<T> callback) where T :  struct, IEvent
         {
             var eventType = typeof(T);
 
             if (!_handlers.ContainsKey(eventType))
                 return;
-
-            var list = _handlers[eventType];
-            if (!list.Contains(callback))
-                return;
-
-            list.Remove(callback);
+            
+            (_handlers[eventType] as EventHandler<T>).UnSubscribe(callback);
         }
 
-        public void Fire(IEvent evnt)
+        public void Fire<T>(T evnt) where T : struct, IEvent
         {
             var eventType = evnt.GetType();
             
             if (!_handlers.ContainsKey(eventType))
                 return;
             
-            var list = _handlers[eventType];
-            for (int i = 0; i < list.Count; i++)
-            {
-                var callback = list[i];
-                callback.Invoke(evnt);
-            }
+            (_handlers[eventType] as EventHandler<T>).Fire(evnt);
         }
     }
 }
