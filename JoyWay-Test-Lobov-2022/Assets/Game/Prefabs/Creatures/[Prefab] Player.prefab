@@ -299,6 +299,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e6796662-204f-47d6-9e1c-3551f1ba01fa
     m_ActionName: Player/Interact Right[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8425464918334050262}
+        m_TargetAssemblyTypeName: Game.Scripts.Creatures.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnResetDummyInputAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 88bf5bf7-6ba0-4d39-9aff-a680e59d266e
+    m_ActionName: Player/ResetDummy[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -318,6 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 8425464918334050258}
   _creatureType: 1
+  _spriteRenderer: {fileID: 0}
   _cameraTransform: {fileID: 5730988556389894308}
   _rigidbody: {fileID: 8425464918334050259}
   _leftHandContainer: {fileID: 3149982894291423136}

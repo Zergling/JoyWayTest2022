@@ -15,6 +15,26 @@ namespace Game.Scripts.Events
         }
     }
 
+    public struct CreatureInflictEffectsChangedEvent : IEvent
+    {
+        public CreatureController CreatureController { get; private set; }
+
+        public CreatureInflictEffectsChangedEvent(CreatureController creatureController)
+        {
+            CreatureController = creatureController;
+        }
+    }
+
+    public struct CreatureDiedEvent : IEvent
+    {
+        public CreatureController CreatureController { get; private set; }
+
+        public CreatureDiedEvent(CreatureController creatureController)
+        {
+            CreatureController = creatureController;
+        }
+    }
+
     public struct CreatureParticleCollisionEvent: IEvent
     {
         public CreatureController ThisCreatureController { get; private set; }
@@ -24,6 +44,20 @@ namespace Game.Scripts.Events
         {
             ThisCreatureController = thisCreatureController;
             FromInstanceId = fromInstanceId;
+        }
+    }
+
+    public struct DummyResetCallEvent : IEvent
+    {
+    }
+
+    public struct CreatureSpawnedEvent : IEvent
+    {
+        public CreatureController CreatureController { get; private set; }
+        
+        public CreatureSpawnedEvent(CreatureController creatureController)
+        {
+            CreatureController = creatureController;
         }
     }
 }

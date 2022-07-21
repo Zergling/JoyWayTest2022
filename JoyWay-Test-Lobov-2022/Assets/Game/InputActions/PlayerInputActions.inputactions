@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ResetDummy",
+                    "type": "Button",
+                    "id": "88bf5bf7-6ba0-4d39-9aff-a680e59d266e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -225,6 +233,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Use Item In Right Hand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49a8d84c-512b-4bf0-9c21-88fb60e54ab5",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ResetDummy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

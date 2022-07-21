@@ -5,6 +5,7 @@ using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
+using Game.Scripts.Events;
 using Game.Scripts.Items;
 using Game.Scripts.ObjectPool;
 using Game.Scripts.Utils;
@@ -103,6 +104,15 @@ namespace Game.Scripts.Creatures.Player
 
             var phase = context.phase;
             _rightHandItem.Use(phase);
+        }
+
+        public void OnResetDummyInputAction(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                var evnt = new DummyResetCallEvent();
+                _eventBus.Fire(evnt);
+            }
         }
 
         private void MoveProcess()
