@@ -89,7 +89,12 @@ namespace Game.Scripts.Items
             result.DamageType = _config.damageType;
             result.DamageValue = _config.damageValue;
             result.WetValue = _config.wetValue;
-            result.InflictEffect = new InflictEffectController(_config.inflictEffectConfig);
+            
+            if (_config.inflictEffectConfig == null)
+                result.InflictEffect = null;
+            else
+                result.InflictEffect = new InflictEffectController(_config.inflictEffectConfig);
+            
             return result;
         }
 

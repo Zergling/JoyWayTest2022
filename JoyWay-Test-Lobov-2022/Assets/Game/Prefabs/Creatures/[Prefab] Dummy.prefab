@@ -209,4 +209,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 1874241708718498991}
   _creatureType: 2
+  _effectControllers: []
   _animatorController: {fileID: 8829169028459131217}
+  _spriteRenderer: {fileID: 5044635097383214744}

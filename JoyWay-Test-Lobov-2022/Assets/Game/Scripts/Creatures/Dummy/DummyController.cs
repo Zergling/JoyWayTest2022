@@ -6,6 +6,7 @@ using Game.Scripts.Creatures.Basic;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.Events;
+using Game.Scripts.InflictEffects;
 using UnityEngine;
 using ZerglingPlugins.Tools.Log;
 
@@ -18,8 +19,6 @@ namespace Game.Scripts.Creatures.Dummy
         [SerializeField] private EnemyAnimatorController _animatorController;
 
         private CreatureController _playerController;
-
-        
 
         public override void OnSpawnFinish()
         {

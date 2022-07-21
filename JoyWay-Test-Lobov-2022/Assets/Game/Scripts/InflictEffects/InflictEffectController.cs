@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Configs;
@@ -11,9 +12,14 @@ namespace Game.Scripts.InflictEffects
     public struct InflictEffectController
     {
         public InflictEffectType EffectType => _config.effectType;
-        public DamageStruct[] DamageStructs => _config.damageItems;
-        public InflictEffectType[] RemoveEffects => _config.removeEffects;
+        public InflictEffectConfigApplyDamageItem[] DamageStructs => _config.damageItems;
+        public List<InflictEffectType> RemoveEffects => _config.removeEffects;
+
+        public bool WithTimer => _config.timerItem.withTimer;
+        public float TimerDuration => _config.timerItem.duration; 
         
+        public Color Color => _config.creatureSpriteColor;
+
         private InflictEffectConfig _config;
 
         public InflictEffectController(InflictEffectConfig config)
@@ -52,6 +58,9 @@ namespace Game.Scripts.InflictEffects
                 var resistItem = resistItems[i];
                 if (damageStruct.DamageType == resistItem.damageType)
                     damageStruct.DamageValue -= resistItem.resistValue;
+
+                if (damageStruct.DamageValue < 0)
+                    damageStruct.DamageValue = 0;
             }
         }
     }
