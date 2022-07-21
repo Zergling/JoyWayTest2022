@@ -8,14 +8,10 @@ namespace Game.Scripts.Events
     public struct CreatureValuesChangedEvent: IEvent
     {
         public CreatureController CreatureController { get; private set; }
-        public int NewHPValue { get; private set; }
-        public int NewWetValue { get; private set; }
 
-        public CreatureValuesChangedEvent(CreatureController creatureController, int newHP, int newWet)
+        public CreatureValuesChangedEvent(CreatureController creatureController)
         {
             CreatureController = creatureController;
-            NewHPValue = newHP;
-            NewWetValue = newWet;
         }
     }
 

@@ -81,7 +81,7 @@ namespace Game.Scripts.Creatures.Basic
             if (_values[CreatureValueType.Wet] < 0)
                 _values[CreatureValueType.Wet] = 0;
 
-            var evnt = new CreatureValuesChangedEvent(this, _values[CreatureValueType.HP], _values[CreatureValueType.Wet]);
+            var evnt = new CreatureValuesChangedEvent(this);
             _eventBus.Fire(evnt);
         }
         

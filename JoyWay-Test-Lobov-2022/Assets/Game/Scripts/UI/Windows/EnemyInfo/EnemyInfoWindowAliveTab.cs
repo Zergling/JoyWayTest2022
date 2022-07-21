@@ -73,6 +73,10 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
 
         private void OnCreatureValuesChangedEvent(CreatureValuesChangedEvent evnt)
         {
+            var creature = evnt.CreatureController;
+            if (_creatureController != creature)
+                return;
+            
             UpdateHPBar();
             UpdateWetBar();
         }
