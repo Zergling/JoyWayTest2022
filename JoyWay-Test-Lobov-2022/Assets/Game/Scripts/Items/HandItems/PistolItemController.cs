@@ -29,7 +29,7 @@ namespace Game.Scripts.Items
                 damage.DamageType = _config.damageType;
                 damage.WetValue = _config.wetValue;
                 
-                creatureController.ApplyDamage(damage);
+                creatureController.ApplyDamage(ref damage);
             }
         }
     }

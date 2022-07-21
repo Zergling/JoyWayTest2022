@@ -17,9 +17,8 @@ namespace Game.Scripts.Creatures.Basic
     public class CreatureController : BasicMonoBehaviour, IObjectPoolItem
     {
         public CreatureType CreatureType => _creatureType;
+
         public int MaxHP => _config.maxHP;
-        public int HPValue=> _values[CreatureValueType.HP];
-        public int WetValue => _values[CreatureValueType.Wet];
 
         [SerializeField] protected CreatureType _creatureType;
 
@@ -66,7 +65,7 @@ namespace Game.Scripts.Creatures.Basic
         {
         }
 
-        public virtual void ApplyDamage(DamageStruct damageStruct)
+        public virtual void ApplyDamage(ref DamageStruct damageStruct)
         {
             _values[CreatureValueType.HP] -= damageStruct.DamageValue;
             if (_values[CreatureValueType.HP] > _config.maxHP)
@@ -84,6 +83,11 @@ namespace Game.Scripts.Creatures.Basic
 
             var evnt = new CreatureValuesChangedEvent(this, _values[CreatureValueType.HP], _values[CreatureValueType.Wet]);
             _eventBus.Fire(evnt);
+        }
+        
+        public int GetCurrentValue(CreatureValueType valueType)
+        {
+            return _values[valueType];
         }
     }
 }

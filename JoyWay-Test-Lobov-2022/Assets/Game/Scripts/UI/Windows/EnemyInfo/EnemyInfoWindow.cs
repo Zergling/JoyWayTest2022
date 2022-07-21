@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
 using Game.Scripts.DI;
+using Game.Scripts.Enums;
 using Game.Scripts.UI.Windows.Basic;
 using TMPro;
 using UnityEngine;
@@ -41,8 +42,9 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
         public override void Setup(EnemyInfoWindowSetup setup)
         {
             _creatureController = setup.CreatureController;
-            
-            var alive = _creatureController.HPValue > 0;
+
+            var hp = _creatureController.GetCurrentValue(CreatureValueType.HP);
+            var alive = hp > 0;
             _aliveTab.SetActive(alive);
             _deadTab.SetActive(!alive);
             

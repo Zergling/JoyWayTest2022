@@ -56,7 +56,7 @@ namespace Game.Scripts.Items
             damage.WetValue = _config.wetValue;
 
             var creatureController = evnt.ThisCreatureController;
-            creatureController.ApplyDamage(damage);
+            creatureController.ApplyDamage(ref damage);
         }
     }
 }

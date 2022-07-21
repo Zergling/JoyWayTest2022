@@ -54,7 +54,7 @@ namespace Game.Scripts.Projectiles
                 return;
 
             var controller = collision.collider.gameObject.GetComponent<CreatureController>();
-            controller.ApplyDamage(_damageStruct);
+            controller.ApplyDamage(ref _damageStruct);
         }
     }
 }

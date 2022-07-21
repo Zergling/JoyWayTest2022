@@ -42,9 +42,9 @@ namespace Game.Scripts.Creatures.Basic
             _currentStateBase.Enter();
         }
 
-        public override void ApplyDamage(DamageStruct damageStruct)
+        public override void ApplyDamage(ref DamageStruct damageStruct)
         {
-            base.ApplyDamage(damageStruct);
+            base.ApplyDamage(ref damageStruct);
 
             var hp = _values[CreatureValueType.HP];
             if (hp > 0)

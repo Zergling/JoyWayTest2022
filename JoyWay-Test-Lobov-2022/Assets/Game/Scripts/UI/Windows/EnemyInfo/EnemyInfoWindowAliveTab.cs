@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
 using Game.Scripts.DI;
+using Game.Scripts.Enums;
 using Game.Scripts.Events;
 using TMPro;
 using UnityEngine;
@@ -50,7 +51,7 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
         
         private void UpdateHPBar()
         {
-            var hp = _creatureController.HPValue;
+            var hp = _creatureController.GetCurrentValue(CreatureValueType.HP);
             var maxHP = _creatureController.MaxHP;
             
             _hpText.text = $"{hp}/{maxHP}";
@@ -61,7 +62,7 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
 
         private void UpdateWetBar()
         {
-            var wetValue = _creatureController.WetValue;
+            var wetValue = _creatureController.GetCurrentValue(CreatureValueType.Wet);
             var wetMax = _gameSettingsConfig.wetMaxValue;
 
             _wetText.text = $"{wetValue}/{wetMax}";
