@@ -20,6 +20,7 @@ namespace Game.Scripts.Creatures.Basic
     public class CreatureController : BasicMonoBehaviour, IObjectPoolItem
     {
         public CreatureType CreatureType => _creatureType;
+        public List<InflictEffectController> EffectControllers => _effectControllers;
 
         public int MaxHP => _config.maxHP;
 
@@ -175,12 +176,17 @@ namespace Game.Scripts.Creatures.Basic
             // recolor _spriteRenderer on applying inflict effect
             if (_spriteRenderer != null)
                 _spriteRenderer.color = effectController.Color;
+
+            var evnt = new CreatureInflictEffectsChangedEvent();
+            _eventBus.Fire(evnt);
         }
         
         private void OnTimerTick(float timeleft)
         {
             if (_effectControllers.Count == 0)
                 return;
+
+            var fireEvent = false;
 
             var i = 0;
             while (i < _effectControllers.Count)
@@ -209,12 +215,19 @@ namespace Game.Scripts.Creatures.Basic
                 if (float.IsNaN(timeleft))
                 {
                     _effectControllers.RemoveAt(i);
+                    fireEvent = true;
                     _spriteRenderer.color = Color.white;
                     continue;
                 }
 
                 i++;
             }
+
+            if (!fireEvent)
+                return;
+            
+            var evnt = new CreatureInflictEffectsChangedEvent();
+            _eventBus.Fire(evnt);
         }
 
         public void CheatHeal()

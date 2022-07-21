@@ -6,6 +6,7 @@ using Game.Scripts.Creatures.Basic;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.Events;
+using Game.Scripts.UI.Elements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
 
         [SerializeField] private TMP_Text _wetText;
         [SerializeField] private Image _wetBarFiller;
+
+        [SerializeField] private InflictEffectControllerWidget[] _inflictEffectWidgets;
         
         private CreatureController _creatureController;
         
@@ -29,6 +32,7 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             var eventBus = _window.EventBus;
             eventBus.Subscribe<CreatureValuesChangedEvent>(OnCreatureValuesChangedEvent);
             eventBus.Subscribe<CreatureSpawnedEvent>(OnCreatureSpawnedEvent);
+            eventBus.Subscribe<CreatureInflictEffectsChangedEvent>(OnCreatureInflictEffectsChangedEvent);
         }
 
         public override void UnSubscribeToEvents()
@@ -36,6 +40,7 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             var eventBus = _window.EventBus;
             eventBus.UnSubscribe<CreatureValuesChangedEvent>(OnCreatureValuesChangedEvent);
             eventBus.UnSubscribe<CreatureSpawnedEvent>(OnCreatureSpawnedEvent);
+            eventBus.UnSubscribe<CreatureInflictEffectsChangedEvent>(OnCreatureInflictEffectsChangedEvent);
         }
 
         public override void Setup(EnemyInfoWindowSetup setup)
@@ -46,9 +51,17 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             
             var diContainer = DIContainer.Instance;
             _gameSettingsConfig = diContainer.Resolve<GameSettingsConfig>();
-            
+
+            for (int i = 0; i < _inflictEffectWidgets.Length; i++)
+            {
+                var widget = _inflictEffectWidgets[i];
+                widget.Init();
+                widget.SetActive(false);
+            }
+
             UpdateHPBar();
             UpdateWetBar();
+            UpdateInflictEffectWidgets();
         }
         
         private void UpdateHPBar()
@@ -73,6 +86,26 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             _wetBarFiller.fillAmount = fillAmount;
         }
 
+        private void UpdateInflictEffectWidgets()
+        {
+            var inflictEffects = _creatureController.EffectControllers;
+            var creatureInstanceId = _creatureController.gameObject.GetInstanceID();
+            for (int i = 0; i < _inflictEffectWidgets.Length; i++)
+            {
+                var widget = _inflictEffectWidgets[i];
+                widget.Reset();
+                widget.SetActive(false);
+
+                if (i >= inflictEffects.Count)
+                    continue;
+
+                var effectController = inflictEffects[i];
+                
+                widget.SetActive(true);
+                widget.Setup(creatureInstanceId, effectController);
+            }
+        }
+
         private void OnCreatureValuesChangedEvent(CreatureValuesChangedEvent evnt)
         {
             var creature = evnt.CreatureController;
@@ -88,6 +121,12 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             _creatureController = evnt.CreatureController;
             UpdateHPBar();
             UpdateWetBar();
+            UpdateInflictEffectWidgets();
+        }
+        
+        private void OnCreatureInflictEffectsChangedEvent(CreatureInflictEffectsChangedEvent evnt)
+        {
+            UpdateInflictEffectWidgets();
         }
     }
 }
