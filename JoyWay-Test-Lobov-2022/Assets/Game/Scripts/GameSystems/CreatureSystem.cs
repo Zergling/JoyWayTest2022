@@ -60,8 +60,11 @@ namespace Game.Scripts.GameSystems
                 LogUtils.Error(this, $"Has no creatures of type {creatureType}");
                 return null;
             }
-
+            
             var list = _creaturesDict[creatureType];
+            if (list.Count == 0)
+                return null;
+            
             var result = list[0];
             return result;
         }

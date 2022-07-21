@@ -16,6 +16,7 @@ namespace Game.Scripts.Creatures.Basic
         public override void OnSpawnFinish()
         {
             GenerateStatesDictionary();
+            _spriteRenderer.color = Color.white;
             EnterState(CreatureState.Idle);
         }
 
@@ -44,6 +45,9 @@ namespace Game.Scripts.Creatures.Basic
 
         public override void ApplyDamage(ref DamageStruct damageStruct)
         {
+            if (_currentState == CreatureState.Dead)
+                return;
+            
             base.ApplyDamage(ref damageStruct);
 
             var hp = _values[CreatureValueType.HP];

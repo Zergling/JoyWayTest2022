@@ -36,12 +36,14 @@ namespace Game.Scripts.Scenes
 
         private void OnEnable()
         {
-            _eventBus.Subscribe<CreatureDiedEvent>(OnCreatureDied);
+            _eventBus.Subscribe<CreatureDiedEvent>(OnCreatureDiedEvent);
+            _eventBus.Subscribe<DummyResetCallEvent>(OnDummyResetCallEvent);
         }
 
         private void OnDisable()
         {
-            _eventBus.UnSubscribe<CreatureDiedEvent>(OnCreatureDied);
+            _eventBus.UnSubscribe<CreatureDiedEvent>(OnCreatureDiedEvent);
+            _eventBus.UnSubscribe<DummyResetCallEvent>(OnDummyResetCallEvent);
         }
 
         private void Awake()
@@ -60,7 +62,9 @@ namespace Game.Scripts.Scenes
         {
             _objectPoolManager.OnStart();
 
-            SpawnGameObjects();
+            SpawnPlayer();
+            SpawnDummy();
+            SpawnPickupItems();
             
             var enemyInfoWindowSetup = new EnemyInfoWindowSetup();
             enemyInfoWindowSetup.CreatureController = _creatureSystem.GetFirst(CreatureType.Dummy);
@@ -108,20 +112,26 @@ namespace Game.Scripts.Scenes
             diContainer.BindInstance(TimerManager.Instance);
         }
 
-        private void SpawnGameObjects()
+        private void SpawnPlayer()
         {
             var player = _objectPoolManager.GetCreatureObject(CreatureType.Player);
             player.Transform.position = _playerSpawnPoint.position;
             player.Transform.eulerAngles = _playerSpawnPoint.eulerAngles;
             player.Transform.SetParent(null);
             player.SetActive(true);
+        }
 
+        private void SpawnDummy()
+        {
             var dummy = _objectPoolManager.GetCreatureObject(CreatureType.Dummy);
             dummy.Transform.position = _dummySpawnPoint.position;
             dummy.Transform.eulerAngles = _dummySpawnPoint.eulerAngles;
             dummy.Transform.SetParent(null);
             dummy.SetActive(true);
+        }
 
+        private void SpawnPickupItems()
+        {
             for (int i = 0; i < _pistolPickupSpawnPoints.Length; i++)
             {
                 var spawnPoint = _pistolPickupSpawnPoints[i];
@@ -152,11 +162,28 @@ namespace Game.Scripts.Scenes
                 waterStonePickup.SetActive(true);
             }
         }
-        
-        private void OnCreatureDied(CreatureDiedEvent evnt)
+
+        private void OnCreatureDiedEvent(CreatureDiedEvent evnt)
         {
             var creatureController = evnt.CreatureController;
             _objectPoolManager.ReturnCreatureObject(creatureController);
+        }
+        
+        private void OnDummyResetCallEvent(DummyResetCallEvent evnt)
+        {
+            var dummy = _creatureSystem.GetFirst(CreatureType.Dummy);
+            if (dummy == null)
+            {
+                SpawnDummy();
+                dummy = _creatureSystem.GetFirst(CreatureType.Dummy);
+
+                var spawnedEvent = new CreatureSpawnedEvent(dummy);
+                _eventBus.Fire(spawnedEvent);
+            }
+            else
+            {
+                dummy.CheatHeal();
+            }
         }
     }
 }

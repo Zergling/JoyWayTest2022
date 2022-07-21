@@ -24,7 +24,7 @@ namespace Game.Scripts.Creatures.Basic
         public int MaxHP => _config.maxHP;
 
         [SerializeField] protected CreatureType _creatureType;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] protected SpriteRenderer _spriteRenderer;
 
         protected Dictionary<CreatureValueType, int> _values;
         protected List<InflictEffectController> _effectControllers;
@@ -56,6 +56,9 @@ namespace Game.Scripts.Creatures.Basic
 
         public void OnSpawn()
         {
+            _values[CreatureValueType.HP] = _config.maxHP;
+            _values[CreatureValueType.Wet] = 0;
+
             var instanceId = gameObject.GetInstanceID();
             _timerManager.CreateTimer(instanceId);
             _timerManager.SubscribeToEverySecondTick(instanceId, OnTimerTick);
@@ -66,9 +69,10 @@ namespace Game.Scripts.Creatures.Basic
         public void OnDespawn()
         {
             var instanceId = gameObject.GetInstanceID();
-            _timerManager.SubscribeToEverySecondTick(instanceId, OnTimerTick);
+            _timerManager.UnSubscribeToEverySecondTick(instanceId, OnTimerTick);
             _timerManager.DeleteTimer(instanceId);
             _creatureSystem.UnSusbscribeCreature(this);
+            _effectControllers.Clear();
             OnDespawnFinish();
         }
 
@@ -82,6 +86,9 @@ namespace Game.Scripts.Creatures.Basic
 
         public virtual void ApplyDamage(ref DamageStruct damageStruct)
         {
+            if (_values[CreatureValueType.HP] <= 0)
+                return;
+            
             // applying inflict effects damage resists
             for (int i = 0; i < _effectControllers.Count; i++)
             {
@@ -208,6 +215,16 @@ namespace Game.Scripts.Creatures.Basic
 
                 i++;
             }
+        }
+
+        public void CheatHeal()
+        {
+            if (_values[CreatureValueType.HP] <= 0)
+                return;
+            
+            _values[CreatureValueType.HP] = _config.maxHP;
+            var evnt = new CreatureValuesChangedEvent(this);
+            _eventBus.Fire(evnt);
         }
     }
 }
