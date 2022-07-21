@@ -34,13 +34,8 @@ namespace Game.Scripts.Creatures.Player
         
         private bool _isJumping;
 
-        private GameSettingsConfig _gameSettingsConfig;
-
         public override void OnSpawnFinish()
         {
-            var diContainer = DIContainer.Instance;
-            _gameSettingsConfig = diContainer.Resolve<GameSettingsConfig>();
-
             _currentRotation = new Vector3(_cameraTransform.localEulerAngles.x, _transform.localEulerAngles.y, 0);
 
             _leftHandItem = null;

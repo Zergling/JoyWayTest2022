@@ -19,15 +19,11 @@ namespace Game.Scripts.Creatures.Dummy
 
         private CreatureController _playerController;
 
-        private EventBus _eventBus;
+        
 
         public override void OnSpawnFinish()
         {
             base.OnSpawnFinish();
-
-            var diContainer = DIContainer.Instance;
-            _eventBus = diContainer.Resolve<EventBus>();
-            
             _playerController = _creatureSystem.GetFirst(CreatureType.Player);
         }
 

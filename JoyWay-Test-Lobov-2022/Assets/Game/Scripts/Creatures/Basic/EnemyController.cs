@@ -45,7 +45,11 @@ namespace Game.Scripts.Creatures.Basic
         public override void ApplyDamage(DamageStruct damageStruct)
         {
             base.ApplyDamage(damageStruct);
-            EnterState(CreatureState.Hit);
+            
+            if (_hp > 0)
+                EnterState(CreatureState.Hit);
+            else
+                EnterState(CreatureState.Dead);
         }
 
         public void OnAnimationEvent()
