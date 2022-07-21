@@ -25,13 +25,21 @@ namespace Game.Scripts.Items
         protected PlayerController _playerController;
 
         protected ObjectPoolManager _objectPoolManager;
+        protected EventBus _eventBus;
+
+        private void Awake()
+        {
+            var diContainer = DIContainer.Instance;
+            
+            _objectPoolManager = diContainer.Resolve<ObjectPoolManager>();
+            _eventBus = diContainer.Resolve<EventBus>();
+            
+            var itemConfigList = diContainer.Resolve<ItemConfigList>();
+            _config = itemConfigList.GetConfig(_itemId);
+        }
 
         public void OnSpawn()
         {
-            var diContainer = DIContainer.Instance;
-            var itemConfigList = diContainer.Resolve<ItemConfigList>();
-            _objectPoolManager = diContainer.Resolve<ObjectPoolManager>();
-            _config = itemConfigList.GetConfig(_itemId);
         }
 
         public void OnDespawn()
@@ -84,8 +92,6 @@ namespace Game.Scripts.Items
         protected virtual void UseCanceled()
         {
         }
-
-        
     }
 }
 

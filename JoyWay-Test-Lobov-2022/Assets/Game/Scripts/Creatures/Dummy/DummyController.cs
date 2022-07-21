@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts.Animations;
 using Game.Scripts.Creatures.Basic;
-using Game.Scripts.Creatures.Player;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
 using Game.Scripts.Events;
@@ -51,6 +50,9 @@ namespace Game.Scripts.Creatures.Dummy
 
         private void OnParticleCollision(GameObject other)
         {
+            var instanceId = other.GetInstanceID();
+            var evnt = new CreatureParticleCollisionEvent(this, instanceId);
+            _eventBus.Fire(evnt);
         }
     }
 }
