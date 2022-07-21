@@ -26,9 +26,8 @@ MonoBehaviour:
     checkAbove: 0
     aboveValue: 0
   damageItems:
-  - DamageType: 2
-    DamageValue: 5
-    WetValue: 0
+  - damageType: 2
+    damageValue: 5
   resistItems:
   - damageType: 1
     resistValue: -10

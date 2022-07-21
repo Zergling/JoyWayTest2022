@@ -14,9 +14,9 @@ namespace Game.Scripts.Configs
         public Color creatureSpriteColor;
         public InflictEffectConfigTimerItem timerItem;
         public InflictEffectConfigCheckApplyItem[] checkApplyItems;
-        public DamageStruct[] damageItems;
+        public InflictEffectConfigApplyDamageItem[] damageItems;
         public InflictEffectConfigApplyDamageResistItem[] resistItems;
-        public InflictEffectType[] removeEffects;
+        public List<InflictEffectType> removeEffects;
     }
 
     [Serializable]
@@ -39,6 +39,13 @@ namespace Game.Scripts.Configs
         
         public bool checkAbove;
         public int aboveValue;
+    }
+
+    [Serializable]
+    public struct InflictEffectConfigApplyDamageItem
+    {
+        public DamageType damageType;
+        public int damageValue;
     }
 
     [Serializable]
