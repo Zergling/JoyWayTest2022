@@ -19,6 +19,25 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
 
         private CreatureController _creatureController;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _aliveTab.OnAwake(this);
+            _deadTab.OnAwake(this);
+        }
+
+        private void OnEnable()
+        {
+            _aliveTab.SubscribeToEvents();
+            _deadTab.SubscribeToEvents();
+        }
+
+        private void OnDisable()
+        {
+            _aliveTab.SubscribeToEvents();
+            _deadTab.SubscribeToEvents();
+        }
+
         public override void Setup(EnemyInfoWindowSetup setup)
         {
             _creatureController = setup.CreatureController;
@@ -27,8 +46,8 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             _aliveTab.SetActive(alive);
             _deadTab.SetActive(!alive);
             
-            _aliveTab.Setup(this, setup);
-            _deadTab.Setup(this, setup);
+            _aliveTab.Setup(setup);
+            _deadTab.Setup(setup);
         }
     }
 }
