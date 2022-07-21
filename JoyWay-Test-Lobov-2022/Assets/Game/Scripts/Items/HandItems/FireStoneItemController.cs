@@ -28,7 +28,7 @@ namespace Game.Scripts.Items
         public override void Setup(PlayerController playerController)
         {
             base.Setup(playerController);
-            _instanceId = gameObject.GetInstanceID();
+            _instanceId = _particleSystem.gameObject.GetInstanceID();
         }
 
         protected override void UsePerformed()
