@@ -17,3 +17,4 @@ MonoBehaviour:
   damageValue: 0
   wetValue: 10
   projetileType: 1
+  inflictEffectConfig: {fileID: 11400000, guid: 61dbc17e9bf3808428678db86ddce406, type: 2}

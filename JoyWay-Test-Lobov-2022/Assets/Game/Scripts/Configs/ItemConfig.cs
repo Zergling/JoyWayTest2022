@@ -13,6 +13,7 @@ namespace Game.Scripts.Configs
         public int damageValue;
         public int wetValue;
         public ProjectileType projetileType;
+        public InflictEffectConfig inflictEffectConfig;
     }
 }
 
