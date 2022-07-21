@@ -32,6 +32,17 @@ namespace Game.Scripts.Scenes
 
         private CreatureSystem _creatureSystem;
         private TimerManager _timerManager;
+        private EventBus _eventBus;
+
+        private void OnEnable()
+        {
+            _eventBus.Subscribe<CreatureDiedEvent>(OnCreatureDied);
+        }
+
+        private void OnDisable()
+        {
+            _eventBus.UnSubscribe<CreatureDiedEvent>(OnCreatureDied);
+        }
 
         private void Awake()
         {
@@ -42,6 +53,7 @@ namespace Game.Scripts.Scenes
             var diContainer = DIContainer.Instance;
             _creatureSystem = diContainer.Resolve<CreatureSystem>();
             _timerManager = diContainer.Resolve<TimerManager>();
+            _eventBus = diContainer.Resolve<EventBus>();
         }
 
         private void Start()
@@ -139,6 +151,12 @@ namespace Game.Scripts.Scenes
                 waterStonePickup.Transform.eulerAngles = spawnPoint.eulerAngles;
                 waterStonePickup.SetActive(true);
             }
+        }
+        
+        private void OnCreatureDied(CreatureDiedEvent evnt)
+        {
+            var creatureController = evnt.CreatureController;
+            _objectPoolManager.ReturnCreatureObject(creatureController);
         }
     }
 }
