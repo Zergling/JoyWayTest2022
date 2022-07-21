@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.DI;
 using UnityEngine;
 using ZerglingPlugins.Tools.Log;
 using ZerglingPlugins.Tools.Singleton;
@@ -13,7 +14,8 @@ namespace ZerglingPlugins.Timers
         private Dictionary<int, TimerObject> _timersDict;
         private List<TimerObject> _timersList;
 
-        private Dictionary<int, List<TickListener>> _tickListeners;
+        private Dictionary<int, List<TickListener>> _lateUpdateTickListeners;
+        private Dictionary<int, List<TickListener>> _everySecondTickListeners;
 
         private float _realtimeSinceStartup;
 
@@ -24,7 +26,8 @@ namespace ZerglingPlugins.Timers
             _timersDict = new Dictionary<int, TimerObject>();
             _timersList = new List<TimerObject>();
 
-            _tickListeners = new Dictionary<int, List<TickListener>>();
+            _lateUpdateTickListeners = new Dictionary<int, List<TickListener>>();
+            _everySecondTickListeners = new Dictionary<int, List<TickListener>>();
 
             _realtimeSinceStartup = Time.realtimeSinceStartup;
         }
@@ -44,12 +47,24 @@ namespace ZerglingPlugins.Timers
                 timer.Tick(delta);
 
                 var timerId = timer.Id;
-                if (!_tickListeners.ContainsKey(timerId))
+                if (_lateUpdateTickListeners.ContainsKey(timerId))
+                {
+                    var list = _lateUpdateTickListeners[timerId];
+                    for (int j = 0; j < list.Count; j++)
+                        list[j].Invoke(timer.Duration);
+                }
+
+                if (timer.SumDelta < 1f)
                     continue;
 
-                var list = _tickListeners[timerId];
-                for (int j = 0; j < list.Count; j++)
-                    list[j].Invoke(timer.Duration);
+                if (_everySecondTickListeners.ContainsKey(timerId))
+                {
+                    var list = _everySecondTickListeners[timerId];
+                    for (int j = 0; j < list.Count; j++)
+                        list[j].Invoke(timer.Duration);
+                }
+
+                timer.OnEverySecondTick();
             }
         }
 
@@ -119,12 +134,12 @@ namespace ZerglingPlugins.Timers
             return timer.Duration;
         }
 
-        public void SubscribeToTick(int id, TickListener listener)
+        public void SubscribeToLateUpdateTick(int id, TickListener listener)
         {
-            if (!_tickListeners.ContainsKey(id))
-                _tickListeners[id] = new List<TickListener>();
+            if (!_lateUpdateTickListeners.ContainsKey(id))
+                _lateUpdateTickListeners[id] = new List<TickListener>();
 
-            var list = _tickListeners[id];
+            var list = _lateUpdateTickListeners[id];
             if (list.Contains(listener))
             {
                 LogUtils.Error(this, $"Listener {listener.Method.Name} already subscribed to timer tick");
@@ -134,12 +149,42 @@ namespace ZerglingPlugins.Timers
             list.Add(listener);
         }
 
-        public void UnSubscribeToTick(int id, TickListener listener)
+        public void UnSubscribeToLateUpdateTick(int id, TickListener listener)
         {
-            if (!_tickListeners.ContainsKey(id))
+            if (!_lateUpdateTickListeners.ContainsKey(id))
                 return;
 
-            var list = _tickListeners[id];
+            var list = _lateUpdateTickListeners[id];
+            if (!list.Contains(listener))
+            {
+                LogUtils.Error(this, $"Listener {listener.Method.Name} not subscribed to timer tick");
+                return;
+            }
+
+            list.Remove(listener);
+        }
+
+        public void SubscribeToEverySecondTick(int id, TickListener listener)
+        {
+            if (!_everySecondTickListeners.ContainsKey(id))
+                _everySecondTickListeners[id] = new List<TickListener>();
+
+            var list = _everySecondTickListeners[id];
+            if (list.Contains(listener))
+            {
+                LogUtils.Error(this, $"Listener {listener.Method.Name} already subscribed to timer tick");
+                return;
+            }
+
+            list.Add(listener);
+        }
+
+        public void UnSubscribeToEverySecondTick(int id, TickListener listener)
+        {
+            if (!_everySecondTickListeners.ContainsKey(id))
+                return;
+
+            var list = _everySecondTickListeners[id];
             if (!list.Contains(listener))
             {
                 LogUtils.Error(this, $"Listener {listener.Method.Name} not subscribed to timer tick");
