@@ -5,6 +5,7 @@ using Game.Scripts.Configs;
 using Game.Scripts.Creatures.Basic;
 using Game.Scripts.DI;
 using Game.Scripts.Enums;
+using Game.Scripts.Events;
 using Game.Scripts.UI.Windows.Basic;
 using TMPro;
 using UnityEngine;
@@ -29,6 +30,9 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
 
         private void OnEnable()
         {
+            EventBus.Subscribe<CreatureDiedEvent>(OnCreatureDiedEvent);
+            EventBus.Subscribe<CreatureSpawnedEvent>(OnCreatureSpawnedEvent);
+            
             _aliveTab.SubscribeToEvents();
             _deadTab.SubscribeToEvents();
         }
@@ -43,13 +47,29 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
         {
             _creatureController = setup.CreatureController;
 
+            ChangeActiveTab();
+            
+            _aliveTab.Setup(setup);
+            _deadTab.Setup(setup);
+        }
+
+        private void ChangeActiveTab()
+        {
             var hp = _creatureController.GetCurrentValue(CreatureValueType.HP);
             var alive = hp > 0;
             _aliveTab.SetActive(alive);
             _deadTab.SetActive(!alive);
-            
-            _aliveTab.Setup(setup);
-            _deadTab.Setup(setup);
+        }
+
+        private void OnCreatureDiedEvent(CreatureDiedEvent evnt)
+        {
+            ChangeActiveTab();
+        }
+        
+        private void OnCreatureSpawnedEvent(CreatureSpawnedEvent evnt)
+        {
+            _creatureController = evnt.CreatureController;
+            ChangeActiveTab();
         }
     }
 }

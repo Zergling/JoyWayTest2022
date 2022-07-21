@@ -28,12 +28,14 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
         {
             var eventBus = _window.EventBus;
             eventBus.Subscribe<CreatureValuesChangedEvent>(OnCreatureValuesChangedEvent);
+            eventBus.Subscribe<CreatureSpawnedEvent>(OnCreatureSpawnedEvent);
         }
 
         public override void UnSubscribeToEvents()
         {
             var eventBus = _window.EventBus;
             eventBus.UnSubscribe<CreatureValuesChangedEvent>(OnCreatureValuesChangedEvent);
+            eventBus.UnSubscribe<CreatureSpawnedEvent>(OnCreatureSpawnedEvent);
         }
 
         public override void Setup(EnemyInfoWindowSetup setup)
@@ -77,6 +79,13 @@ namespace Game.Scripts.UI.Windows.EnemyInfo
             if (_creatureController != creature)
                 return;
             
+            UpdateHPBar();
+            UpdateWetBar();
+        }
+
+        private void OnCreatureSpawnedEvent(CreatureSpawnedEvent evnt)
+        {
+            _creatureController = evnt.CreatureController;
             UpdateHPBar();
             UpdateWetBar();
         }
