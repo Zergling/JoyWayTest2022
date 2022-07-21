@@ -12,6 +12,7 @@ using Game.Scripts.GameSystems;
 using Game.Scripts.ObjectPool;
 using Game.Scripts.UI.Windows.EnemyInfo;
 using Game.Scripts.UI.Windows.HUD;
+using ZerglingPlugins.Timers;
 using ZerglingPlugins.Windows;
 
 namespace Game.Scripts.Scenes
@@ -30,6 +31,7 @@ namespace Game.Scripts.Scenes
         [SerializeField] private Transform[] _waterStonePickupSpawnPoints;
 
         private CreatureSystem _creatureSystem;
+        private TimerManager _timerManager;
 
         private void Awake()
         {
@@ -39,6 +41,7 @@ namespace Game.Scripts.Scenes
 
             var diContainer = DIContainer.Instance;
             _creatureSystem = diContainer.Resolve<CreatureSystem>();
+            _timerManager = diContainer.Resolve<TimerManager>();
         }
 
         private void Start()
@@ -68,6 +71,7 @@ namespace Game.Scripts.Scenes
 
         private void LateUpdate()
         {
+            _timerManager.OnLateUpdate();
         }
 
         private void InstallBindings()
@@ -89,6 +93,7 @@ namespace Game.Scripts.Scenes
             _windowsManager = Instantiate(_windowsManager);
             diContainer.BindInstance(_windowsManager);
             diContainer.BindInstance(CreatureSystem.Instance);
+            diContainer.BindInstance(TimerManager.Instance);
         }
 
         private void SpawnGameObjects()
